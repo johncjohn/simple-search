@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Date, Float, Boolean
+from sqlalchemy import Column, Integer, String, Date, Float, Boolean, LargeBinary
 from datetime import date
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -84,7 +84,7 @@ class Student(Base):
     ph = Column(Boolean)
     bpl = Column(Boolean)
     blood = Column(String)
-    image = Column(bytea)
+    image = Column(LargeBinary)
     image_status = Column(String)
     address1 = Column(String)
     p_office1 = Column(String)
