@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Date, Float, Boolean, LargeBinary
-from sqlalchemy.dialects.postgresql import POINT
+#from sqlalchemy.dialects.postgresql import POINT
 from datetime import date
-from sqlalchemy.ext.declarative import declarative_base
+#from sqlalchemy.ext.declarative import declarative_base
 #from geoalchemy2 import Geometry
 #from sqlalchemy.types import Point
 
