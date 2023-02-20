@@ -8,7 +8,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")## Call the API key under your accou
                                             ##and store it in .env file
 #app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
 #app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = postgres://admin:LK1joKixSkHrItiDOyhAneLKIrWwmsv9@dpg-cfp0vk82i3mo4bvetdjg-a.oregon-postgres.render.com/institute
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://admin:LK1joKixSkHrItiDOyhAneLKIrWwmsv9@dpg-cfp0vk82i3mo4bvetdjg-a.oregon-postgres.render.com/institute'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
