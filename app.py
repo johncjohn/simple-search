@@ -14,7 +14,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")## Call the API key under your accou
 #engine = create_engine(os.getenv('DATABASE_URL'))
 engine = create_engine("postgresql://admin:LK1joKixSkHrItiDOyhAneLKIrWwmsv9@dpg-cfp0vk82i3mo4bvetdjg-a.oregon-postgres.render.com/institute")
 session = Session(bind=engine)
-from app import app, db
+from app import db
 from models import User
 with app.app_context():
     db.create_all()
