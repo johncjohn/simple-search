@@ -5,6 +5,7 @@ from flask import Flask, redirect, render_template, request, url_for
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
+
 app = Flask(__name__)
 openai.api_key = os.getenv("OPENAI_API_KEY")## Call the API key under your account (in a secure way) 
                                             ##and store it in .env file
@@ -12,7 +13,10 @@ openai.api_key = os.getenv("OPENAI_API_KEY")## Call the API key under your accou
 #conn = psycopg2.connect(db_url)
 engine = create_engine('postgresql://username:password@hostname:port/databasename')
 session = Session(bind=engine)
-
+from app import app, db
+from models import User
+with app.app_context():
+    db.create_all()
 
 @app.route("/", methods=("GET", "POST"))
 def index():
