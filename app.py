@@ -14,13 +14,13 @@ openai.api_key = os.getenv("OPENAI_API_KEY")## Call the API key under your accou
 #engine = create_engine(os.getenv('DATABASE_URL'))
 engine = create_engine("postgresql://admin:LK1joKixSkHrItiDOyhAneLKIrWwmsv9@dpg-cfp0vk82i3mo4bvetdjg-a.oregon-postgres.render.com/institute")
 session = Session(bind=engine)
-#from app import app, db
-#from models import User
-#with app.app_context():
-#    db.create_all()
-#user = User(name='John Doe', email='john.doe@example.com')
-#db.session.add(user)
-#db.session.commit()
+from app import app, db
+from models import User
+with app.app_context():
+    db.create_all()
+user = User(name='John Doe', email='john.doe@example.com')
+db.session.add(user)
+db.session.commit()
 
 
 @app.route("/", methods=("GET", "POST"))
