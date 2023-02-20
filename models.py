@@ -84,7 +84,7 @@ class Student(Base):
     ph = Column(Boolean)
     bpl = Column(Boolean)
     blood = Column(String)
-    image = Column(LargeBinary)
+    image = Column(Blob)
     image_status = Column(String)
     address1 = Column(String)
     p_office1 = Column(String)
