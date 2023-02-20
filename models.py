@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, Date, Float, Boolean, LargeBinar
 from datetime import date
 from sqlalchemy.ext.declarative import declarative_base
 from geoalchemy2 import Geometry
+from sqlalchemy.types import Point
 
 Base = declarative_base()
 
@@ -92,13 +93,13 @@ class Student(Base):
     district1 = Column(String)
     state1 = Column(String)
     pincode1 = Column(Integer)
-    gps1 = Column(Geometry('POINT'))
+    gps1 = Column(Point)
     address2 = Column(String)
     p_office2 = Column(String)
     district2 = Column(String)
     state2 = Column(String)
     pincode2 = Column(Integer)
-    gps2 = Column(Geometry('POINT'))
+    gps2 = Column(Point)
     email = Column(String)
     rit_email = Column(String)
     mobile_ph_no = Column(String)
