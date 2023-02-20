@@ -17,6 +17,10 @@ from app import app, db
 from models import User
 with app.app_context():
     db.create_all()
+user = User(name='John Doe', email='john.doe@example.com')
+db.session.add(user)
+db.session.commit()
+
 
 @app.route("/", methods=("GET", "POST"))
 def index():
