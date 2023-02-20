@@ -17,7 +17,6 @@ class User(Base):
   
 class Student(Base):
     __tablename__ = 'student'
-
     admission_no = Column(String, primary_key=True)
     name = Column(String)
     program_id = Column(String)
