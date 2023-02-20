@@ -12,7 +12,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")## Call the API key under your accou
 #db_url = os.environ.get('DATABASE_URL')
 #conn = psycopg2.connect(db_url)
 #engine = create_engine(os.getenv('DATABASE_URL'))
-engine = create_engine(postgres://admin:LK1joKixSkHrItiDOyhAneLKIrWwmsv9@dpg-cfp0vk82i3mo4bvetdjg-a.oregon-postgres.render.com/institute)
+engine = create_engine("postgresql://admin:LK1joKixSkHrItiDOyhAneLKIrWwmsv9@dpg-cfp0vk82i3mo4bvetdjg-a.oregon-postgres.render.com/institute")
 session = Session(bind=engine)
 #from app import app, db
 #from models import User
