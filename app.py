@@ -1,5 +1,5 @@
 import os
-#import psycopg2
+import psycopg2
 import openai
 from flask import Flask, redirect, render_template, request, url_for
 from sqlalchemy import create_engine
