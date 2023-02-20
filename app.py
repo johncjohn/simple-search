@@ -1,15 +1,18 @@
 import os
-import psycopg2
+#import psycopg2
 import openai
 from flask import Flask, redirect, render_template, request, url_for
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
 
 app = Flask(__name__)
 openai.api_key = os.getenv("OPENAI_API_KEY")## Call the API key under your account (in a secure way) 
                                             ##and store it in .env file
-#app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
-#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db_url = os.environ.get('DATABASE_URL')
-conn = psycopg2.connect(db_url)
+#db_url = os.environ.get('DATABASE_URL')
+#conn = psycopg2.connect(db_url)
+engine = create_engine('postgresql://username:password@hostname:port/databasename')
+session = Session(bind=engine)
+
 
 @app.route("/", methods=("GET", "POST"))
 def index():
