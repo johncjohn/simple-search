@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, Date, Float, Boolean, LargeBinary
 from datetime import date
 from sqlalchemy.ext.declarative import declarative_base
+from geoalchemy2 import Geometry
 
 Base = declarative_base()
 
