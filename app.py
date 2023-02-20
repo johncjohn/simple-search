@@ -52,6 +52,7 @@ def GPT_Completion(intext):
       presence_penalty = 0
       )
   #return print(response.choices[0].text)
+  #ok
   return response.choices[0].text
 
 def generate_prompt(animal):
