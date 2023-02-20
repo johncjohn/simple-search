@@ -3,8 +3,8 @@ import psycopg2
 import openai
 from flask import Flask, redirect, render_template, request, url_for
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from models import Base, User
+#from sqlalchemy.orm import sessionmaker
+from models import Base
 
 
 app = Flask(__name__)
@@ -15,17 +15,17 @@ openai.api_key = os.getenv("OPENAI_API_KEY")## Call the API key under your accou
 #engine = create_engine(os.getenv('DATABASE_URL'))
 engine = create_engine("postgresql://admin:LK1joKixSkHrItiDOyhAneLKIrWwmsv9@dpg-cfp0vk82i3mo4bvetdjg-a.oregon-postgres.render.com/institute")
 Base.metadata.create_all(bind=engine)
-Session = sessionmaker(bind=engine)
-session = Session()
+#Session = sessionmaker(bind=engine)
+#session = Session()
 
 # create a new user
-user = User(name='John', email='john@example.com', password='secret')
-session.add(user)
-session.commit()
+#user = User(name='John', email='john@example.com', password='secret')
+#session.add(user)
+#session.commit()
 
 # retrieve all users
-users = session.query(User).all()
-print(users)
+#users = session.query(User).all()
+#print(users)
 
 
 @app.route("/", methods=("GET", "POST"))
