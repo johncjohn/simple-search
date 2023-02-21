@@ -1,101 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>Staffer Signup Form</title>
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Open Sans', sans-serif;
-      background-color: #f6f9fc;
-    }
-    
-    .container {
-      width: 90%;
-      max-width: 600px;
-      margin: 0 auto;
-      background-color: #fff;
-      padding: 30px;
-      border-radius: 5px;
-      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-    }
-    
-    h1 {
-      text-align: center;
-      font-weight: 700;
-      margin-bottom: 30px;
-    }
-    
-    label {
-      display: block;
-      margin-bottom: 8px;
-    }
-    
-    input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    input[type="date"],
-    select {
-      width: 100%;
-      border: 1px solid #ccc;
-      padding: 12px;
-      margin-bottom: 20px;
-      border-radius: 5px;
-      font-size: 16px;
-    }
-    
-    input[type="submit"] {
-      background-color: #3b8ad9;
-      color: #fff;
-      border: none;
-      padding: 12px 20px;
-      margin-top: 20px;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    
-    input[type="submit"]:hover {
-      background-color: #236bbf;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>Staffer Signup Form</h1>
-    <form>
-      <label for="pen">PEN</label>
-      <input type="text" id="pen" name="pen">
-      
-      <label for="staffer_name">Staffer Name</label>
-      <input type="text" id="staffer_name" name="staffer_name">
-      
-      <label for="desig">Designation</label>
-      <input type="text" id="desig" name="desig">
-      
-      <label for="date_service_entry">Date of Service Entry</label>
-      <input type="date" id="date_service_entry" name="date_service_entry">
-      
-      <label for="date_present_position">Date of Present Position</label>
-      <input type="date" id="date_present_position" name="date_present_position">
-      
-      <label for="date_joined">Date of Joined</label>
-      <input type="date" id="date_joined" name="date_joined">
-      
-      <label for="date_relieved">Date of Relieved</label>
-      <input type="date" id="date_relieved" name="date_relieved">
-      
-      <label for="name_last_worked">Name of Last Worked Place</label>
-      <input type="text" id="name_last_worked" name="name_last_worked">
-      
-      <label for="teaching_experience">Teaching Experience</label>
-      <input type="number" id="teaching_experience" name="teaching_experience">
-      
-     
+  <head>
+    <title>Charming Sign Up Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <h1>Sign Up Now!</h1>
+    <form method="POST" action="{{ url_for('submit') }}">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
 
-        <input type="submit" value="Sign Up">
-      </form>
-    </div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+
+      <input type="submit" value="Sign Up">
+    </form>
   </body>
 </html>
-
