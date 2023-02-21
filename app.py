@@ -37,6 +37,30 @@ def index():
 
     result = request.args.get("result")
     return render_template("index.html", result=result)
+  
+@app.route('/signup', methods=['POST'])
+def signup():
+    # Process form data
+    pen = request.form['pen']
+    staffer_name = request.form['staffer_name']
+    desig = request.form['desig']
+    # etc. (retrieve data for all fields)
+
+    # Create a new Staffer object with the retrieved data
+    new_staffer = Staffer(
+        pen=pen,
+        staffer_name=staffer_name,
+        desig=desig,
+        date_service_entry=date_service_entry,
+        # etc. (assign data to all fields in Staffer object)
+    )
+
+    # Add the new Staffer object to the database session and commit changes
+    db.session.add(new_staffer)
+    db.session.commit()
+
+    # Render a success page to the user
+    return render_template('staffer_sign_up.html')
 
 
 def GPT_Completion(intext):
