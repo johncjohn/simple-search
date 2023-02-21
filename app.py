@@ -40,14 +40,14 @@ Base.metadata.create_all(bind=engine)
   
 @app.route('/')
 def index():
-    return render_template('staff_sign_up.html')
+    return render_template('erp_home.html')
 
-@app.route('/submit', methods=['POST'])
-def submit():
-    name = request.form.get('name')
-    email = request.form.get('email')
-    password = request.form.get('password')
-    return f'Thank you for signing up, {name}! We will send a confirmation email to {email}.'
+# @app.route('/submit', methods=['POST'])
+# def submit():
+#     name = request.form.get('name')
+#     email = request.form.get('email')
+#     password = request.form.get('password')
+#     return f'Thank you for signing up, {name}! We will send a confirmation email to {email}.'
 
 
 
