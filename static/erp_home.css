@@ -1,161 +1,60 @@
-/* Global Styles */
-
+/* Global styles */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
-    color: #333;
-    background-color: #fff;
-  }
-  
-  a {
-    text-decoration: none;
-    color: #333;
-  }
-  
-  /* Header Section */
-  
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 80px;
-    padding: 0 50px;
-    background-color: #007bff;
-    color: #fff;
-  }
-  
-  header h1 {
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  header h2 {
-    font-size: 16px;
-  }
-  
-  /* Main Section */
-  
-  main {
-    display: flex;
-    flex-direction: row;
-    padding: 50px;
-  }
-  
-  .left-section {
-    width: 50%;
-    margin-right: 50px;
-  }
-  
-  .right-section {
-    width: 50%;
-  }
-  
-  /* Tabs Styles */
-  
-  .tabs {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  
-  .tabs ul {
-    display: flex;
-    list-style: none;
-  }
-  
-  .tabs ul li {
-    margin-right: 10px;
-  }
-  
-  .tabs ul li a {
-    display: block;
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border-radius: 5px 5px 0 0;
-    font-weight: bold;
-  }
-  
-  .tabs ul li a:hover {
-    background-color: #0062cc;
-  }
-  
-  .tabs ul li.active a {
-    background-color: #fff;
-    color: #007bff;
-  }
-  
-  /* Sign In, Sign Up, Forgot Password Forms Styles */
-  
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-  }
-  
-  .form-group label {
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .form-group input {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-  }
-  
-  .form-group button {
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    background-color: #007bff;
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  .form-group button:hover {
-    background-color: #0062cc;
-  }
-  
-  /* Important, Message, Quick Links Tabs Styles */
-  
-  .right-section .tab-content {
-    display: none;
-  }
-  
-  .right-section .tab-content.active {
-    display: block;
-  }
-  
-  .right-section h3 {
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  .right-section ul {
-    list-style: none;
-    margin-bottom: 20px;
-  }
-  
-  .right-section ul li {
-    margin-bottom: 10px;
-  }
-  
-  .right-section a {
-    color: #007bff;
-    font-weight: bold;
-  }
-  
-  .right-section a:hover {
-    text-decoration: underline;
-  }
-  
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: Arial, sans-serif;
+}
+
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+/* Header styles */
+header {
+	background-color: #333;
+	color: #fff;
+	padding: 20px 0;
+}
+
+#logo img {
+	height: 50px;
+}
+
+nav {
+	float: right;
+	margin-top: 10px;
+}
+
+nav ul {
+	list-style: none;
+}
+
+nav li {
+	display: inline-block;
+	margin-left: 20px;
+}
+
+nav a {
+	color: #fff;
+	text-decoration: none;
+}
+
+nav a:hover {
+	border-bottom: 2px solid #fff;
+}
+
+/* Banner styles */
+#banner {
+	background-image: url(banner.jpg);
+	background-size: cover;
+	background-position: center;
+	padding: 100px 0;
+	text-align: center;
+}
+
+#banner h1 {
+	font-size: 48px;
+	margin-bottom
