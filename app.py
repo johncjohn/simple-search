@@ -28,17 +28,17 @@ Base.metadata.create_all(bind=engine)
 #print(users)
 
 
-@app.route("/", methods=("GET", "POST"))
-def index():
-    if request.method == "POST":
-        intext = request.form["query"]
-        response = GPT_Completion(intext)
-        return render_template('creation.html', result=response)
+#@app.route("/", methods=("GET", "POST"))
+#def index():
+ #   if request.method == "POST":
+  #      intext = request.form["query"]
+   #     response = GPT_Completion(intext)
+    #    return render_template('creation.html', result=response)
 
-    result = request.args.get("result")
-    return render_template("index.html", result=result)
+    #result = request.args.get("result")
+    #return render_template("index.html", result=result)
   
-@app.route('/signup')
+@app.route('/')
 def index():
     return render_template('signup.html')
 
