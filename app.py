@@ -40,7 +40,7 @@ Base.metadata.create_all(bind=engine)
   
 @app.route('/')
 def index():
-    return render_template('erp_home.html')
+    return render_template('erphome.html')
 
 # @app.route('/submit', methods=['POST'])
 # def submit():
