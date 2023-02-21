@@ -1,61 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>University ERP System</title>
-	<link rel="stylesheet" type="text/css" href="erphome.css">
+	<title>ERP System Home Page</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-	<header class="header">
-		<h1>University Name</h1>
-		<h2>Enterprise Resource Planning</h2>
-	</header>
-
-	<section class="content">
-		<div class="left-section">
-			<ul class="tab-list">
-				<li><a href="#signin-tab" class="active">Sign In</a></li>
-				<li><a href="#signup-tab">Sign Up</a></li>
-				<li><a href="#forgotpassword-tab">Forgot Password</a></li>
-			</ul>
-
-			<div class="tab-content">
-				<div id="signin-tab" class="tab-pane active">
-					<form>
-						<!-- Sign In Form Content -->
-					</form>
-				</div>
-				<div id="signup-tab" class="tab-pane">
-					<form>
-						<!-- Sign Up Form Content -->
-					</form>
-				</div>
-				<div id="forgotpassword-tab" class="tab-pane">
-					<form>
-						<!-- Forgot Password Form Content -->
-					</form>
-				</div>
+	<header>
+		<div class="container">
+			<div id="logo">
+				<img src="logo.png" alt="ERP System Logo">
 			</div>
+			<nav>
+				<ul>
+					<li><a href="#">Home</a></li>
+					<li><a href="#">About</a></li>
+					<li><a href="#">Services</a></li>
+					<li><a href="#">Contact Us</a></li>
+				</ul>
+			</nav>
 		</div>
-
-		<div class="right-section">
-			<ul class="tab-list">
-				<li><a href="#important-tab" class="active">Important</a></li>
-				<li><a href="#message-tab">Message</a></li>
-				<li><a href="#quicklinks-tab">Quick Links</a></li>
-			</ul>
-
-			<div class="tab-content">
-				<div id="important-tab" class="tab-pane active">
-					<!-- Important Section Content -->
-				</div>
-				<div id="message-tab" class="tab-pane">
-					<!-- Message Section Content -->
-				</div>
-				<div id="quicklinks-tab" class="tab-pane">
-					<!-- Quick Links Section Content -->
-				</div>
-			</div>
+	</header>
+	<section id="banner">
+		<div class="container">
+			<h1>Welcome to our ERP System</h1>
+			<p>A complete solution for all your business needs</p>
+			<a href="#" class="btn">Learn More</a>
 		</div>
 	</section>
+	<section id="features">
+		<div class="container">
+			<h2>Our Features</h2>
+			<ul>
+				<li>
+					<img src="feature1.png" alt="Feature 1">
+					<h3>Feature 1</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+				</li>
+				<li>
+					<img src="feature2.png" alt="Feature 2">
+					<h3>Feature 2</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+				</li>
+				<li>
+					<img src="feature3.png" alt="Feature 3">
+					<h3>Feature 3</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+				</li>
+			</ul>
+		</div>
+	</section>
+	<section id="cta">
+		<div class="container">
+			<h2>Ready to get started?</h2>
+			<a href="#" class="btn">Contact Us</a>
+		</div>
+	</section>
+	<footer>
+		<div class="container">
+			<p>&copy; 2023 ERP System. All rights reserved.</p>
+		</div>
+	</footer>
 </body>
 </html>
