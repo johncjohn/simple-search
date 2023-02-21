@@ -40,7 +40,7 @@ Base.metadata.create_all(bind=engine)
   
 @app.route('/')
 def index():
-    return render_template('staff_signup.html')
+    return render_template('staff_sign_up.html')
 
 @app.route('/submit', methods=['POST'])
 def submit():
