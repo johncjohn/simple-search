@@ -6,4 +6,5 @@ COPY requirements.txt /code/
 RUN pip install -r requirements.txt
 RUN pip install psycopg2-binary
 COPY . /code/
-CMD python app.py
+ENV FLASK_APP=app.py
+CMD ["flask", "run", "--host", "0.0.0.0"]
