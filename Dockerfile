@@ -6,4 +6,5 @@ COPY requirements.txt /code/
 RUN pip install -r requirements.txt
 RUN pip install psycopg2-binary
 COPY . /code/
-CMD python app.py
+ENTRYPOINT [ “python” ]
+CMD [ “app.py” ]
