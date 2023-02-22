@@ -40,7 +40,7 @@ Base.metadata.create_all(bind=engine)
   
 @app.route('/')
 def index():
-    return render_template('staff_sign_up.html')
+    return render_template('index.html')
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -48,36 +48,6 @@ def submit():
     email = request.form.get('email')
     password = request.form.get('password')
     return f'Thank you for signing up, {name}! We will send a confirmation email to {email}.'
-
-
-
-def GPT_Completion(intext):
-  ## Call the API key under your account (in a secure way)
-  #openai.api_key = ""
-  response = openai.Completion.create(
-      engine="text-davinci-002",
-      prompt =  intext,#generate_prompt(intext),
-      temperature = 0.6,
-      top_p = 1,
-      max_tokens = 64,
-      frequency_penalty = 0,
-      presence_penalty = 0
-      )
-  #return print(response.choices[0].text)
-  #ok
-  return response.choices[0].text
-
-def generate_prompt(animal):
-    return """Suggest three names for an animal that is a superhero.
-
-Animal: Cat
-Names: Captain Sharpclaw, Agent Fluffball, The Incredible Feline
-Animal: Dog
-Names: Ruff the Protector, Wonder Canine, Sir Barks-a-Lot
-Animal: {}
-Names:""".format(
-        animal.capitalize()
-    )
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))

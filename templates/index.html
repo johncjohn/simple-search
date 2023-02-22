@@ -1,21 +1,68 @@
 <!DOCTYPE html>
-<head>
-  <title>Jack Sparrow Search Engine</title>
-  <link
-    rel="shortcut icon"
-    href="{{ url_for('static', filename='dog.png') }}"
-  />
-  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
-</head>
-
-<body>
-  <img src="{{ url_for('static', filename='jack.png') }}" class="icon" />
-  <h3>Captain Jack Sparrow, our real hero</h3>
-  <form action="/" method="post">
-    <input type="text" name="query" placeholder="your query" required />
-    <input type="submit" value="Search" />
-  </form>
-  {% if result %}
-  <div class="result">{{ result }}</div>
-  {% endif %}
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Stanford University</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='homestyle.css') }}" />
+  </head>
+  <body>
+    <!-- Logo and Header -->
+    <body>
+      <!-- Logo and Header -->
+      <header>
+        <div class="logo">
+          <a href="#">Stanford University     Enterprise Resource Planning</a>
+          <p></p>
+        </div>
+       
+        <div class="search">
+          <input type="text" placeholder="Search">
+          <button>Go</button>
+        </div>
+      </header>
+      
+      <!-- Sign In Form Section -->
+      <section id="signin-form" class="form-section">
+        <h2>Sign In</h2>
+        <form>
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password">
+          <button type="submit">Sign In</button>
+        </form>
+      </section>
+  
+      <!-- Featured Programs Section -->
+      <section class="featured">
+        <h2>Featured Programs</h2>
+        <ul>
+          <li>
+            <img src="{{ url_for('static', filename='jack.png') }}" alt="Program 1">
+            <h3>Program 1</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer hendrerit risus vel leo finibus bibendum. Nulla facilisi. Nulla facilisi.</p>
+          </li>
+          <li>
+            <img src="{{ url_for('static', filename='dog.png') }}" alt="Program 2">
+            <h3>Program 2</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer hendrerit risus vel leo finibus bibendum. Nulla facilisi. Nulla facilisi.</p>
+          </li>
+          <li>
+            <img src="{{ url_for('static', filename='dog.png') }}" alt="Program 3">
+            <h3>Program 3</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer hendrerit risus vel leo finibus bibendum. Nulla facilisi. Nulla facilisi.</p>
+          </li>
+        </ul>
+      </section>
+  
+      <!-- Footer -->
+      <footer>
+        <ul>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Use</a></li>
+        </ul>
+        <p>&copy; 2023</p>
+      </footer>
+    </body>
+  </html>
