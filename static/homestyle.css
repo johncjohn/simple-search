@@ -178,4 +178,92 @@
     font-size: 1rem;
     color: #333;
   }
+ /* Define a grid layout with two columns */
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  align-items: start;
+}
+
+/* Set the position of the form sections to absolute */
+.form-section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Show the selected form section */
+.form-section.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Set the position of the help section to the right */
+.right-section {
+  grid-column: 2;
+}
+
+  
+  
+  
+  /* .form-section {
+    display: none;
+  } */
+  
+  /* .form-section.show {
+    display: block;
+  } */
+
+  .three-image {
+    max-width: 50%;
+  }
+
+  .smaller-text {
+    font-size: 14px;
+  }
+  .tab-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Add flexbox display */
+    background-color: #4CAF50; /* Add background color */
+  }
+  
+  .tab-list li {
+    margin: 0;
+  }
+  
+  .tab-list li a {
+    display: block;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .tab-list li:first-child a {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+  
+  .tab-list li:last-child a {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+  
+  .tab-list li a:hover {
+    background-color: #ddd;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   
