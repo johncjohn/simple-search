@@ -1,22 +1,18 @@
-// Hide all the forms by default
-const forms = document.querySelectorAll('.tab-container form');
-forms.forEach(form => form.classList.add('hidden'));
+const tabButtons = document.querySelectorAll('.tab-container .tabs button');
+  const forms = document.querySelectorAll('.tab-container form');
 
-// Show the sign in form by default
-const signInForm = document.querySelector('.signin-form');
-signInForm.classList.remove('hidden');
+  // Add a click event listener to each tab button
+  tabButtons.forEach((button, index) => {
+    button.addEventListener('click', () => {
+      // Remove the "active" class from all tab buttons and forms
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      forms.forEach(form => form.style.display = 'none');
 
-// Add event listeners to the tab buttons
-const tabButtons = document.querySelectorAll('.tablinks');
-tabButtons.forEach(button => {
-  button.addEventListener('click', (event) => {
-    // Hide all the forms
-    forms.forEach(form => form.classList.add('hidden'));
-
-    // Show the corresponding form
-    const target = event.currentTarget.getAttribute('data-target');
-    const formToShow = document.querySelector(`.${target}`);
-    formToShow.classList.remove('hidden');
+      // Add the "active" class to the clicked tab button and show the corresponding form
+      button.classList.add('active');
+      forms[index].style.display = 'block';
+    });
   });
-});
 
+  // Show the first form by default
+  tabButtons[0].click();
