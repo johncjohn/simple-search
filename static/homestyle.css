@@ -161,7 +161,7 @@
  .container {
   display: flex;
   flex-direction: row;
-  height: 100vh;
+  height: 60vh;
 }
 
 .left-half, .right-half {
@@ -169,7 +169,7 @@
 }
 
 .left-half {
-  background-color: #eee;
+  background-color: white;
 }
 
 /* .right-half {
@@ -228,22 +228,7 @@
   }
   
   
-  /* .button-signin {
-    background-color: #3498db;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.2s ease-in-out;
-  }
   
-  .button-signin:hover {
-    background-color: #2980b9;
-  } */
-
-  /* <!-- Add these styles to your CSS file --> */
 
   .tab-container {
     display: flex;
@@ -319,6 +304,6 @@
     margin-top: 20px;
     margin-bottom: 20px;
     border: none;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #ffff;
   }
 

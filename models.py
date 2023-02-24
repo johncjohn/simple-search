@@ -12,6 +12,7 @@ class User(Base):
     id = Column(String, primary_key=True)
     name = Column(String)
     email = Column(String)
+    password = Column(String)
     role = Column(String)
 
   

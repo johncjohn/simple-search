@@ -3,8 +3,8 @@ import psycopg2
 import openai
 from flask import Flask, redirect, render_template, request, url_for
 from sqlalchemy import create_engine
-#from sqlalchemy.orm import sessionmaker
-from models import Base
+from sqlalchemy.orm import sessionmaker
+from models import Base, User
 
 
 app = Flask(__name__)
@@ -15,7 +15,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")## Call the API key under your accou
 #engine = create_engine(os.getenv('DATABASE_URL'))
 engine = create_engine("postgresql://admin:LK1joKixSkHrItiDOyhAneLKIrWwmsv9@dpg-cfp0vk82i3mo4bvetdjg-a.oregon-postgres.render.com/institute")
 Base.metadata.create_all(bind=engine)
-#Session = sessionmaker(bind=engine)
+Session = sessionmaker(bind=engine)
 #session = Session()
 
 # create a new user
@@ -37,10 +37,50 @@ Base.metadata.create_all(bind=engine)
 
     #result = request.args.get("result")
     #return render_template("index.html", result=result)
-  
+from functools import wraps
+
+def login_required(role="ANY"):
+    def wrapper(fn):
+        @wraps(fn)
+        def decorated_view(*args, **kwargs):
+            if not session.get('logged_in'):
+                return redirect(url_for('login'))
+            if session.get('role') != role and role != "ANY":
+                return redirect(url_for('home'))
+            return fn(*args, **kwargs)
+        return decorated_view
+    return wrapper
+ 
 @app.route('/')
 def index():
     return render_template('index.html')
+@app.route('/')
+@login_required()
+def home():
+    return render_template('logged.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user = User.query.filter_by(username=username, password=password).first()
+        if user:
+            session['logged_in'] = True
+            session['username'] = user.username
+            session['role'] = user.role
+            return redirect(url_for('home'))
+        else:
+            return render_template('login.html', error='Invalid username or password.')
+    else:
+        return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
+
+
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -48,6 +88,17 @@ def submit():
     email = request.form.get('email')
     password = request.form.get('password')
     return f'Thank you for signing up, {name}! We will send a confirmation email to {email}.'
+
+@app.route('/add_user/<string:id>/<string:name>/<string:password>/<string:role>', methods=['GET'])
+def add_user(id, name, password, role):
+    session = Session()
+    user = User(id=id, name=name, password=password, role=role)
+    session.add(user)
+    session.commit()
+    session.close()
+    
+    return 'User added successfully'
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))

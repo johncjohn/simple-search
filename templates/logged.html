@@ -1,0 +1,14 @@
+<!-- home.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+    <h1>Welcome, {{ session.get('username') }}!</h1>
+    {% if session.get('role') == 'admin' %}
+        <p>You have administrative privileges.</p>
+    {% endif %}
+    <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>
