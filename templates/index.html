@@ -2,8 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Oxbridge University</title>
+    <title>Welcome to ERP</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='homestyle.css') }}" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   </head>
   <body>
     <!-- Logo and Header -->
@@ -11,64 +12,80 @@
       <!-- Logo and Header -->
       <header>
         <div class="logo">
-          <a href="#">Oxbridge University    <span class="smaller-text"> Enterprise Resource Planning</span>   </a>
-          <p></p>
+          <a href="#">Oxbridge University    <span class="smaller-text"> ERP</span>   </a>
+          <p> <span class="smaller-text"> Enterprise Resource Planning</span> </p>
         </div>
         
         <div class="search">
           <input type="text" placeholder="Search">
           <button>Go</button>
         </div>
+        
       </header>
-      <nav>
+      <!-- <nav>
         <ul class="tab-list">
           <li><a href="#" id="signin-link">Sign In</a></li>
           <li><a href="#" id="signup-link">Sign Up</a></li>
           <li><a href="#" id="forgot-password-link">Forgot Password</a></li>
         </ul>
-      </nav>
+      </nav> -->
       <div class="container">
-        <section id="signin-section" class="form-section">
-          <h2>Sign In</h2>
-          <form>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password">
-            <button type="submit">Sign In</button>
-          </form>
-        </section>
-      
-        <section id="signup-section" class="form-section">
-          <h2>Sign Up</h2>
-          <form>
-            <label for="fullname">Full Name:</label>
-            <input type="text" id="fullname" name="fullname">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email">
-            <label for="new-username">Username:</label>
-            <input type="text" id="new-username" name="new-username">
-            <label for="new-password">Password:</label>
-            <input type="password" id="new-password" name="new-password">
-            <button type="submit">Sign Up</button>
-          </form>
-        </section>
-      
-        <section id="forgot-password-section" class="form-section">
-          <h2>Forgot Password</h2>
-          <form>
-            <label for="forgot-email">Email:</label>
-            <input type="email" id="forgot-email" name="forgot-email">
-            <button type="submit">Reset Password</button>
-          </form>
-        </section>
-      
-        <section class="right-section">
-          <h2>Help</h2>
-          <p>This is some help text that explains how to use the forms.</p>
-        </section>
+        <div class="left-half">
+          <!-- Left half content goes here -->
+          <div class="tab-container">
+            <div class="tabs">
+              <button class="tablinks active" onclick="openForm(event, 'signin')">Sign In</button>
+              <button class="tablinks" onclick="openForm(event, 'signup')">Sign Up</button>
+              <button class="tablinks" onclick="openForm(event, 'forgot')">Forgot Password</button>
+              <hr class="tab-line">
+            </div>
+          
+            <div class="signin-form">
+              <form>
+                <h2>Sign In</h2>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <input type="submit" class="button-signin" value="Sign In">
+              </form>
+            </div>
+          
+            <div class="signup-form">
+              <form>
+                <h2>Sign Up</h2>
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+                <input type="submit" class="button-signin" value="Sign Up">
+              </form>
+            </div>
+            
+          
+            <div class="forgotpassword-form">
+              <form>
+                <h2>Forgot Password</h2>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <input type="submit" class="button-signin" value="Submit">
+              </form>
+            </div>
+            
+          </div>
+        </div>
+        <div class="right-half">
+          <h2>Welcome to the Secure Portal for Oxbridge University</h2>
+           <p>
+            Please sign in or create an account to access your portal. If you've forgotten your password, you can reset it using the "Forgot Password" form.
+          </p>                
+        </div>
+        
       </div>
-      
       
     </main>
   
@@ -81,17 +98,17 @@
         <ul>
           <li>
             <img class="three-image" src="{{ url_for('static', filename='yale.jpg') }}" alt="Program 1">
-            <h3>Program 1</h3>
+            <h3>Feature 1</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer hendrerit risus vel leo finibus bibendum. Nulla facilisi. Nulla facilisi.</p>
           </li>
           <li>
             <img class="three-image" src="{{ url_for('static', filename='stjohns.jpg') }}" alt="Program 2">
-            <h3>Program 2</h3>
+            <h3>Feature 2</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer hendrerit risus vel leo finibus bibendum. Nulla facilisi. Nulla facilisi.</p>
           </li>
           <li>
             <img class="three-image" src="{{ url_for('static', filename='harvard_1.jpg') }}" alt="Program 3">
-            <h3>Program 3</h3>
+            <h3>Feature 3</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer hendrerit risus vel leo finibus bibendum. Nulla facilisi. Nulla facilisi.</p>
           </li>
         </ul>

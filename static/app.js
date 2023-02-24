@@ -1,26 +1,22 @@
-document.addEventListener("DOMContentLoaded", function() {
+// Hide all the forms by default
+const forms = document.querySelectorAll('.tab-container form');
+forms.forEach(form => form.classList.add('hidden'));
 
-    const signinLink = document.getElementById('signin-link');
-    const signupLink = document.getElementById('signup-link');
-    const forgotPasswordLink = document.getElementById('forgot-password-link');
-  
-    const signinSection = document.getElementById('signin-section');
-    const signupSection = document.getElementById('signup-section');
-    const forgotPasswordSection = document.getElementById('forgot-password-section');
-  
-    signinLink.addEventListener('click', function(event) {
-      event.preventDefault();
-      signupSection.classList.remove('show');
-      forgotPasswordSection.classList.remove('show');
-      signinSection.classList.add('show');
-    });
-  
-    signupLink.addEventListener('click', function(event) {
-      event.preventDefault();
-      signinSection.classList.remove('show');
-      forgotPasswordSection.classList.remove('show');
-      signupSection.classList.add('show');
-    });
-  
-    forgotPasswordLink.addEventListener('click', function(event)
-  
+// Show the sign in form by default
+const signInForm = document.querySelector('.signin-form');
+signInForm.classList.remove('hidden');
+
+// Add event listeners to the tab buttons
+const tabButtons = document.querySelectorAll('.tablinks');
+tabButtons.forEach(button => {
+  button.addEventListener('click', (event) => {
+    // Hide all the forms
+    forms.forEach(form => form.classList.add('hidden'));
+
+    // Show the corresponding form
+    const target = event.currentTarget.getAttribute('data-target');
+    const formToShow = document.querySelector(`.${target}`);
+    formToShow.classList.remove('hidden');
+  });
+});
+

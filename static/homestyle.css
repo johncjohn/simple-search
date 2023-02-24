@@ -7,7 +7,7 @@
   }
   
   body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 16px;
     line-height: 1.5;
     color: #333;
@@ -179,46 +179,197 @@
     color: #333;
   }
  /* Define a grid layout with two columns */
-.container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 20px;
-  align-items: start;
+ .container {
+  display: flex;
+  flex-direction: row;
+  height: 70vh;
 }
 
-/* Set the position of the form sections to absolute */
-.form-section {
+.left-half, .right-half {
+  flex: 1;
+}
+
+.left-half {
+  background-color: #eee;
+}
+
+/* .right-half {
+  background-color: #ddd;
+} */
+
+.right-half {
+  flex: 1;
+  padding: 50px;
+}
+
+.right-half h1 {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.right-half h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.right-half p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.right-half ul {
+  list-style: none;
+  margin-top: 40px;
+}
+
+.right-half ul li {
+  margin-bottom: 10px;
+}
+
+.right-half ul li a {
+  color: #333;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.right-half ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Style the tab buttons */
+
+
+/* Style the tab buttons */
+.tablinks {
+  background-color: #f2f2f2;
+  color: black;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Change background color of active tab */
+.tablinks.active {
+  background-color: white;
+  border-bottom: 2px solid white;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 20px;
+  border: 2px solid #f4f4f2;
+  border-top: none;
+}
+
+/* Align tabs horizontally around center */
+.tabs {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+/* Add space between each tab */
+.tablinks:not(:last-child) {
+  margin-right: 40px;
+}
+
+/* Add horizontal line at the bottom of the tabs */
+.tab-line {
   position: absolute;
-  top: 0;
-  left: 0;
+  bottom: 0;
   width: 100%;
-  height: 100%;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease-in-out;
+  height: 1px;
+  border: none;
+  background-color: #ccc;
 }
 
-/* Show the selected form section */
-.form-section.show {
-  opacity: 1;
-  pointer-events: auto;
+.tab-container form {
+  display: none;
 }
 
-/* Set the position of the help section to the right */
-.right-section {
-  grid-column: 2;
+.tab-container form.hidden {
+  display: none !important;
 }
 
-  
-  
-  
-  /* .form-section {
-    display: none;
-  } */
-  
-  /* .form-section.show {
-    display: block;
-  } */
+/* Style form input fields */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  font-size: 16px;
+  color: #333;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Change input field color on focus */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  background-color: #fff;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2),
+              0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Add red border on invalid input */
+input:invalid {
+  border-color: red;
+}
+
+/* Change input placeholder color */
+::-webkit-input-placeholder {
+  color: #888;
+}
+
+:-moz-placeholder {
+  color: #888;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+}
+
+.search input[type="text"],
+.search button {
+  margin-left: 10px;
+}
+
+::-moz-placeholder {
+  color: #888;
+}
+
+:-ms-input-placeholder {
+  color: #888;
+}
+/* Style submit button for sign in form */
+.signin-form input[type="submit"] {
+  background-color: #d14545;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Change submit button color on hover */
+.signin-form input[type="submit"]:hover {
+  background-color: #e14b40;
+}
 
   .three-image {
     max-width: 50%;
@@ -267,3 +418,17 @@
     align-items: center;
   }
   
+  /* .button-signin {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .button-signin:hover {
+    background-color: #2980b9;
+  } */
