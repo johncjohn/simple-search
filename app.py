@@ -1,7 +1,7 @@
 import os
 import psycopg2
 import openai
-from flask import Flask, redirect, render_template, request, url_for
+from flask import Flask, redirect, render_template, request, url_for,session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Base, User
@@ -51,9 +51,9 @@ def login_required(role="ANY"):
         return decorated_view
     return wrapper
  
-@app.route('/')
-def index():
-    return render_template('login.html')
+# @app.route('/')
+# def index():
+#     return render_template('login.html')
 @app.route('/')
 @login_required()
 def home():
