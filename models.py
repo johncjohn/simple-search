@@ -4,13 +4,18 @@ from datetime import date
 from sqlalchemy.ext.declarative import declarative_base
 #from geoalchemy2 import Geometry
 #from sqlalchemy.types import Point
+from sqlalchemy.orm import Query
+
+class CustomQuery(Query):
+    pass
+
 
 Base = declarative_base()
 
 class User(Base):
     __tablename__ = 'users'
     id = Column(String, primary_key=True)
-    name = Column(String)
+    username = Column(String)
     email = Column(String)
     password = Column(String)
     role = Column(String)

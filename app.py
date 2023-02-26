@@ -5,7 +5,7 @@ from flask import Flask, redirect, render_template, request, url_for,session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Base, User
-
+from models import CustomQuery  # import your custom query class
 
 app = Flask(__name__)
 openai.api_key = os.getenv("OPENAI_API_KEY")## Call the API key under your account (in a secure way) 
@@ -15,8 +15,13 @@ openai.api_key = os.getenv("OPENAI_API_KEY")## Call the API key under your accou
 #engine = create_engine(os.getenv('DATABASE_URL'))
 engine = create_engine("postgresql://admin:LK1joKixSkHrItiDOyhAneLKIrWwmsv9@dpg-cfp0vk82i3mo4bvetdjg-a.oregon-postgres.render.com/institute")
 Base.metadata.create_all(bind=engine)
-Session = sessionmaker(bind=engine)
-#session = Session()
+# Session = sessionmaker(bind=engine)
+# Session = sessionmaker(bind=engine, query_class=CustomQuery)
+# Session = sessionmaker(bind=engine, query_class=CustomQuery)()
+# create a session factory bound to the engine and using the custom query class
+Session = sessionmaker(bind=engine, query_cls=CustomQuery)
+
+session = Session()
 
 # create a new user
 #user = User(name='John', email='john@example.com', password='secret')
@@ -64,12 +69,15 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        user = User.query.filter_by(username=username, password=password).first()
+        # user = User.query.filter_by(username=username, password=password).first()
+        with Session() as session:
+            user = session.query(User).filter_by(username=username, password=password).first()
         if user:
-            session['logged_in'] = True
-            session['username'] = user.username
-            session['role'] = user.role
+            session['__logged_in__'] = True
+            session['__username__'] = user.username
+            session['__role__'] = user.role
             return redirect(url_for('home'))
+
         else:
             return render_template('login.html', error='Invalid username or password.')
     else:
@@ -91,8 +99,8 @@ def submit():
 
 @app.route('/add_user/<string:id>/<string:name>/<string:password>/<string:role>', methods=['GET'])
 def add_user(id, name, password, role):
-    session = Session()
-    user = User(id=id, name=name, password=password, role=role)
+    # session = Session()
+    user = User(id=id, username=name, password=password, role=role)
     session.add(user)
     session.commit()
     session.close()
