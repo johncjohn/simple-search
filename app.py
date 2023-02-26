@@ -1,13 +1,14 @@
 import os
 import psycopg2
 import openai
-from flask import Flask, redirect, render_template, request, url_for,session
+from flask import Flask, redirect, render_template, request, url_for,session as fsession
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Base, User
 from models import CustomQuery  # import your custom query class
 
 app = Flask(__name__)
+app.secret_key = "my_secret_key"
 openai.api_key = os.getenv("OPENAI_API_KEY")## Call the API key under your account (in a secure way) 
                                             ##and store it in .env file
 #db_url = os.environ.get('DATABASE_URL')
@@ -21,7 +22,7 @@ Base.metadata.create_all(bind=engine)
 # create a session factory bound to the engine and using the custom query class
 Session = sessionmaker(bind=engine, query_cls=CustomQuery)
 
-session = Session()
+# session = Session()
 
 # create a new user
 #user = User(name='John', email='john@example.com', password='secret')
@@ -48,9 +49,9 @@ def login_required(role="ANY"):
     def wrapper(fn):
         @wraps(fn)
         def decorated_view(*args, **kwargs):
-            if not session.get('logged_in'):
+            if not fsession.get('logged_in'):
                 return redirect(url_for('login'))
-            if session.get('role') != role and role != "ANY":
+            if fsession.get('role') != role and role != "ANY":
                 return redirect(url_for('home'))
             return fn(*args, **kwargs)
         return decorated_view
@@ -73,9 +74,11 @@ def login():
         with Session() as session:
             user = session.query(User).filter_by(username=username, password=password).first()
         if user:
-            session['__logged_in__'] = True
-            session['__username__'] = user.username
-            session['__role__'] = user.role
+            fsession.update({'__logged_in__': True, 'username':user.username,'__role__':user.role})
+            print("done")
+            # session['__logged_in__'] = True
+            # session['__username__'] = user.username
+            # session['__role__'] = user.role
             return redirect(url_for('home'))
 
         else:
