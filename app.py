@@ -1,7 +1,7 @@
 import os
 import psycopg2
 import openai
-from flask import Flask, redirect, render_template, request, url_for,session as fsession
+from flask import Flask, redirect, render_template, request, url_for,session as session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Base, User
@@ -21,8 +21,7 @@ Base.metadata.create_all(bind=engine)
 # Session = sessionmaker(bind=engine, query_class=CustomQuery)()
 # create a session factory bound to the engine and using the custom query class
 Session = sessionmaker(bind=engine, query_cls=CustomQuery)
-
-# session = Session()
+dbsession = Session()
 
 # create a new user
 #user = User(name='John', email='john@example.com', password='secret')
@@ -49,9 +48,9 @@ def login_required(role="ANY"):
     def wrapper(fn):
         @wraps(fn)
         def decorated_view(*args, **kwargs):
-            if not fsession.get('logged_in'):
+            if not session.get('logged_in'):
                 return redirect(url_for('login'))
-            if fsession.get('role') != role and role != "ANY":
+            if session.get('role') != role and role != "ANY":
                 return redirect(url_for('home'))
             return fn(*args, **kwargs)
         return decorated_view
@@ -62,8 +61,13 @@ def login_required(role="ANY"):
 #     return render_template('login.html')
 @app.route('/')
 @login_required()
-def home():
-    return render_template('logged.html')
+def index():
+    return render_template('login.html')
+
+@app.route('/dashboard')
+@login_required()
+def dashboard():
+    return render_template('dashboard.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -71,17 +75,15 @@ def login():
         username = request.form['username']
         password = request.form['password']
         # user = User.query.filter_by(username=username, password=password).first()
-        with Session() as session:
-            user = session.query(User).filter_by(username=username, password=password).first()
+        with Session() as dbsession:
+            user = dbsession.query(User).filter_by(username=username, password=password).first()
         if user:
-            fsession.update({'__logged_in__': True, 'username':user.username,'__role__':user.role})
+            session.update({'logged_in': True, 'username':user.username,'role':user.role})
             print("done")
-            # session['__logged_in__'] = True
-            # session['__username__'] = user.username
-            # session['__role__'] = user.role
-            return redirect(url_for('home'))
+            return redirect(url_for('dashboard'))
 
         else:
+            print("undone")
             return render_template('login.html', error='Invalid username or password.')
     else:
         return render_template('login.html')
@@ -90,8 +92,6 @@ def login():
 def logout():
     session.clear()
     return redirect(url_for('login'))
-
-
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -104,9 +104,9 @@ def submit():
 def add_user(id, name, password, role):
     # session = Session()
     user = User(id=id, username=name, password=password, role=role)
-    session.add(user)
-    session.commit()
-    session.close()
+    dbsession.add(user)
+    dbsession.commit()
+    dbsession.close()
     
     return 'User added successfully'
 
