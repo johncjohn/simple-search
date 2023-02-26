@@ -4,7 +4,7 @@ import openai
 from flask import Flask, redirect, render_template, request, url_for,session as session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from models import Base, User
+from models import Base, User, User_Role
 from models import CustomQuery  # import your custom query class
 
 app = Flask(__name__)
@@ -100,15 +100,24 @@ def submit():
     password = request.form.get('password')
     return f'Thank you for signing up, {name}! We will send a confirmation email to {email}.'
 
-@app.route('/add_user/<string:id>/<string:name>/<string:password>/<string:role>', methods=['GET'])
-def add_user(id, name, password, role):
+@app.route('/add_user/<string:id>/<string:name>/<string:password>', methods=['GET'])
+def add_user(id, name, password):
     # session = Session()
-    user = User(id=id, username=name, password=password, role=role)
+    user = User(id=id, username=name, password=password)
     dbsession.add(user)
     dbsession.commit()
     dbsession.close()
-    
     return 'User added successfully'
+
+@app.route('/add_role/<string:id>/<string:role>', methods=['GET'])
+def add_role(id, role):
+    # session = Session()
+    user_role = User_Role(id=id, role=role)
+    dbsession.add(user_role)
+    dbsession.commit()
+    dbsession.close()
+    
+    return 'Role added successfully'
 
 
 if __name__ == "__main__":

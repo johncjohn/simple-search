@@ -18,8 +18,12 @@ class User(Base):
     username = Column(String)
     email = Column(String)
     password = Column(String)
-    role = Column(String)
+    
 
+class User_Role(Base):
+    __tablename__ = 'user_role'
+    id = Column(String, primary_key=True)
+    role = Column(String, primary_key=True)
   
 class Student(Base):
     __tablename__ = 'student'
