@@ -4,7 +4,7 @@ import openai
 from flask import Flask, redirect, render_template, request, url_for,session as session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from models import Base, User, User_Role
+from models import Base, User, Role, User_Role
 from models import CustomQuery  # import your custom query class
 
 app = Flask(__name__)
@@ -55,6 +55,10 @@ def login_required(role="ANY"):
             return fn(*args, **kwargs)
         return decorated_view
     return wrapper
+
+# Define a function to get the role names for a user
+def get_role_names(user):
+    return [role.name for role in user.roles]
  
 # @app.route('/')
 # def index():
@@ -67,7 +71,40 @@ def index():
 @app.route('/dashboard')
 @login_required()
 def dashboard():
-    return render_template('dashboard.html')
+    # Get the current user and roles from the session
+    current_user = {
+        "username": session['username'],
+        "roles": session['roles']
+    }
+    # Define the available privileges for each role
+    privileges = {
+        "admin": {
+            "Academic": ["Add", "Edit", "Delete"],
+            "Courses": ["Add", "Edit", "Delete"],
+            "Enrollment": ["View", "Add", "Edit", "Delete"]
+        },
+        "professor": {
+            "Academic": ["View"],
+            "Courses": ["View", "Add"],
+            "Enrollment": ["View"]
+        },
+        "student": {
+            "Academic": ["View"],
+            "Courses": ["View"],
+            "Enrollment": ["View", "Add"]
+        }
+    }
+
+    # Get the privileges of each role for the current user
+    user_privileges = {}
+    for role_name in current_user["roles"]:
+        role_privileges = privileges.get(role_name, {})
+        user_privileges.update(role_privileges)
+
+    # Render the dashboard template with the user information and privileges
+    return render_template('dashboard.html', user=current_user, privileges=user_privileges)
+
+    # return render_template('dashboard.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -78,7 +115,8 @@ def login():
         with Session() as dbsession:
             user = dbsession.query(User).filter_by(username=username, password=password).first()
         if user:
-            session.update({'logged_in': True, 'username':user.username,'role':user.role})
+            # session.update({'logged_in': True, 'username':user.username,'role':user.role})
+            session.update({'logged_in': True, 'username':user.username,'roles':get_role_names(user)})
             print("done")
             return redirect(url_for('dashboard'))
 

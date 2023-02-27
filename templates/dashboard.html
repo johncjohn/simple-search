@@ -1,4 +1,4 @@
-<!-- home.html -->
+<!-- home.html
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,4 +11,47 @@
     {% endif %}
     <a href="{{ url_for('logout') }}">Logout</a>
 </body>
-</html>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Dashboard</h1>
+        <p>Welcome, {{ username }}!</p>
+        <p>Roles: {{ roles }}</p>
+        <form action="{{ url_for('login') }}" method="post">
+            <button type="submit">Logout</button>
+        </form>
+    </header>
+    <main>
+        <section>
+            <h2>Academic</h2>
+            <ul>
+                {% if 'view_grades' in roles %}
+                <li>View grades</li>
+                {% endif %}
+                {% if 'update_grades' in roles %}
+                <li>Update grades</li>
+                {% endif %}
+            </ul>
+        </section>
+        <section>
+            <h2>Courses</h2>
+            <ul>
+                {% if 'view_courses' in roles %}
+                <li>View courses</li>
+                {% endif %}
+                {% if 'add_course' in roles %}
+                <li>Add course</li>
+                {% endif %}
+                {% if 'remove_course' in roles %}
+                <li>Remove course</li>
+                {% endif %}
+            </ul>
+        </section>
+    </main>

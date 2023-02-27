@@ -1,10 +1,10 @@
-from sqlalchemy import Column, Integer, String, Date, Float, Boolean, LargeBinary
+from sqlalchemy import Column, Integer, String, Date, Float, Boolean, LargeBinary, Table,ForeignKey
 #from sqlalchemy.dialects.postgresql import POINT
 from datetime import date
 from sqlalchemy.ext.declarative import declarative_base
 #from geoalchemy2 import Geometry
 #from sqlalchemy.types import Point
-from sqlalchemy.orm import Query
+from sqlalchemy.orm import Query, relationship
 
 class CustomQuery(Query):
     pass
@@ -12,18 +12,36 @@ class CustomQuery(Query):
 
 Base = declarative_base()
 
+# Define the many-to-many relationship between users and roles
+# user_roles = Table('user_roles', Base.metadata,
+#     Column('user_id', Integer, ForeignKey('users.id')),
+#     Column('role_id', Integer, ForeignKey('roles.id'))
+# )
+
+class UserRole(Base):
+    __tablename__ = 'user_roles'
+    user_id = Column(String, ForeignKey('users.id'), primary_key=True)
+    role_id = Column(String, ForeignKey('roles.id'), primary_key=True)
+
 class User(Base):
     __tablename__ = 'users'
     id = Column(String, primary_key=True)
     username = Column(String)
     email = Column(String)
     password = Column(String)
-    
+    roles = relationship('Role', secondary=user_roles, backref='users')
 
-class User_Role(Base):
-    __tablename__ = 'user_role'
-    id = Column(String, primary_key=True)
-    role = Column(String, primary_key=True)
+class Role(Base):
+    __tablename__ = 'roles'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50), unique=True)    
+
+
+
+# class User_Role(Base):
+#     __tablename__ = 'user_role'
+#     id = Column(String, primary_key=True)
+#     role = Column(String, primary_key=True)
   
 class Student(Base):
     __tablename__ = 'student'

@@ -1,0 +1,102 @@
+/* Style for header section */
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 24px;
+  }
+  
+  /* Style for navigation bar */
+  nav {
+    background-color: #f2f2f2;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+  }
+  
+  nav a {
+    display: block;
+    color: #333;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 18px;
+    margin-right: 10px;
+  }
+  
+  nav a.active {
+    background-color: #333;
+    color: white;
+  }
+  
+  nav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  /* Style for content section */
+  .content {
+    margin: 20px;
+    font-size: 18px;
+  }
+  
+  /* Style for accordion */
+  .accordion {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  .accordion-header {
+    background-color: #f2f2f2;
+    color: #333;
+    cursor: pointer;
+    padding: 14px 16px;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .accordion-header:hover {
+    background-color: #ddd;
+  }
+  
+  .accordion-header.active {
+    background-color: #333;
+    color: white;
+  }
+  
+  .accordion-body {
+    display: none;
+    padding: 10px 16px;
+    background-color: white;
+  }
+  
+  /* Style for switcher section */
+  .switcher {
+    margin-top: 20px;
+    font-size: 18px;
+  }
+  
+  .switcher label {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  
+  .switcher select {
+    font-size: 18px;
+    padding: 5px;
+    border-radius: 4px;
+  }
+  
+  /* Style for footer section */
+  footer {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+  }
+  
