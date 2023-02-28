@@ -18,24 +18,24 @@ Base = declarative_base()
 #     Column('role_id', Integer, ForeignKey('roles.id'))
 # )
 
-class UserRole(Base):
-    __tablename__ = 'user_roles'
-    user_id = Column(String, ForeignKey('users.id'), primary_key=True)
-    role_id = Column(String, ForeignKey('roles.id'), primary_key=True)
 
 class User(Base):
     __tablename__ = 'users'
-    id = Column(String, primary_key=True)
-    username = Column(String)
-    email = Column(String)
-    password = Column(String)
-    roles = relationship('Role', secondary=user_roles, backref='users')
+    user_id = Column(String, primary_key=True)
+    user_name = Column(String)
+    user_email = Column(String)
+    user_password = Column(String)
+    roles = relationship('Role', secondary='user_roles', backref='users')
 
 class Role(Base):
     __tablename__ = 'roles'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(50), unique=True)    
+    role_id = Column(Integer, primary_key=True)
+    role_name = Column(String(50), unique=True)    
 
+class UserRole(Base):
+    __tablename__ = 'user_roles'
+    user_id = Column(String, ForeignKey('users.user_id'), primary_key=True)
+    role_id = Column(Integer, ForeignKey('roles.role_id'), primary_key=True)
 
 
 # class User_Role(Base):

@@ -4,7 +4,7 @@ import openai
 from flask import Flask, redirect, render_template, request, url_for,session as session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from models import Base, User, Role, User_Role
+from models import Base, User, Role, UserRole
 from models import CustomQuery  # import your custom query class
 
 app = Flask(__name__)
@@ -56,9 +56,16 @@ def login_required(role="ANY"):
         return decorated_view
     return wrapper
 
-# Define a function to get the role names for a user
-def get_role_names(user):
-    return [role.name for role in user.roles]
+# # Define a function to get the role names for a user
+# def get_role_names(user_name):
+#     return [roles.role_name for role in user.roles]
+
+def get_role_names(user_name):
+    session = Session()
+    user = session.query(User).filter_by(user_name=user_name).first()
+    role_names = [role.role_name for role in user.roles]
+    session.close()
+    return role_names
  
 # @app.route('/')
 # def index():
@@ -83,7 +90,7 @@ def dashboard():
             "Courses": ["Add", "Edit", "Delete"],
             "Enrollment": ["View", "Add", "Edit", "Delete"]
         },
-        "professor": {
+        "director": {
             "Academic": ["View"],
             "Courses": ["View", "Add"],
             "Enrollment": ["View"]
@@ -109,14 +116,14 @@ def dashboard():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+        user_name = request.form['username']
+        user_password = request.form['password']
         # user = User.query.filter_by(username=username, password=password).first()
         with Session() as dbsession:
-            user = dbsession.query(User).filter_by(username=username, password=password).first()
+            user = dbsession.query(User).filter_by(user_name=user_name, user_password=user_password).first()
         if user:
             # session.update({'logged_in': True, 'username':user.username,'role':user.role})
-            session.update({'logged_in': True, 'username':user.username,'roles':get_role_names(user)})
+            session.update({'logged_in': True, 'username':user.user_name,'roles':get_role_names(user_name)})
             print("done")
             return redirect(url_for('dashboard'))
 
@@ -141,21 +148,31 @@ def submit():
 @app.route('/add_user/<string:id>/<string:name>/<string:password>', methods=['GET'])
 def add_user(id, name, password):
     # session = Session()
-    user = User(id=id, username=name, password=password)
+    user = User(user_id=id, user_name=name, user_password=password)
     dbsession.add(user)
     dbsession.commit()
     dbsession.close()
     return 'User added successfully'
 
-@app.route('/add_role/<string:id>/<string:role>', methods=['GET'])
-def add_role(id, role):
+@app.route('/add_role/<int:id>/<string:role_name>', methods=['GET'])
+def add_role(id, role_name):
     # session = Session()
-    user_role = User_Role(id=id, role=role)
-    dbsession.add(user_role)
+    role = Role(role_id=id, role_name=role_name)
+    dbsession.add(role)
     dbsession.commit()
     dbsession.close()
     
     return 'Role added successfully'
+
+@app.route('/user_role/<string:user_id>/<int:role_id>', methods=['GET'])
+def add_user_role(user_id, role_id):
+    # session = Session()
+    user_role = UserRole(user_id=user_id, role_id=role_id)
+    dbsession.add(user_role)
+    dbsession.commit()
+    dbsession.close()
+    
+    return 'User to Role mapping has been done successfully'
 
 
 if __name__ == "__main__":
