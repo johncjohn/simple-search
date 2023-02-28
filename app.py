@@ -1,7 +1,7 @@
 import os
 import psycopg2
 import openai
-from flask import Flask, redirect, render_template, request, url_for,session as session
+from flask import Flask, redirect, render_template, request, url_for,session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Base, User, Role, UserRole
@@ -11,28 +11,11 @@ app = Flask(__name__)
 app.secret_key = "my_secret_key"
 openai.api_key = os.getenv("OPENAI_API_KEY")## Call the API key under your account (in a secure way) 
                                             ##and store it in .env file
-# db_url = os.environ.get('DATABASE_URL')
-#conn = psycopg2.connect(db_url)
 engine = create_engine(os.getenv('DATABASE_URL'))
 #engine = create_engine("postgresql://admin:LK1joKixSkHrItiDOyhAneLKIrWwmsv9@dpg-cfp0vk82i3mo4bvetdjg-a.oregon-postgres.render.com/institute")
 Base.metadata.create_all(bind=engine)
-# Session = sessionmaker(bind=engine)
-# Session = sessionmaker(bind=engine, query_class=CustomQuery)
-# Session = sessionmaker(bind=engine, query_class=CustomQuery)()
-# create a session factory bound to the engine and using the custom query class
 Session = sessionmaker(bind=engine, query_cls=CustomQuery)
 dbsession = Session()
-
-# create a new user
-#user = User(name='John', email='john@example.com', password='secret')
-#session.add(user)
-#session.commit()
-
-# retrieve all users
-#users = session.query(User).all()
-#print(users)
-
-
 
 from functools import wraps
 
@@ -52,13 +35,11 @@ def login_required(role="ANY"):
 # def get_role_names(user_name):
 #     return [roles.role_name for role in user.roles]
 
-def get_role_names(user_name):
-    session = Session()
-    user = session.query(User).filter_by(user_name=user_name).first()
+def get_role_names(user_name, dbsession):
+    user = dbsession.query(User).filter_by(user_name=user_name).first()
     role_names = [role.role_name for role in user.roles]
-    session.close()
     return role_names
- 
+
 # @app.route('/')
 # def index():
 #     return render_template('login.html')
@@ -67,8 +48,6 @@ def get_role_names(user_name):
 def index():
     return render_template('login.html')
 
-
-   
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -78,34 +57,27 @@ def login():
         with Session() as dbsession:
             user = dbsession.query(User).filter_by(user_name=user_name, user_password=user_password).first()
         if user:
-            # session.update({'logged_in': True, 'username':user.username,'role':user.role})
-            # session.update({'logged_in': True, 'username':user.user_name,'roles':get_role_names(user_name)})
+            role_names = get_role_names(user_name, dbsession)
+            session.update({'logged_in': True, 'username':user.user_name, 'roles': role_names})
             print("done")
-            #return redirect(url_for('dashboard'))
-            return redirect(url_for('dashboard'))
-            # return render_template('login.html')
-
+            return redirect(url_for('dashboard'))            
         else:
             print("undone")
             return render_template('login.html', error='Invalid username or password.')
     else:
         return render_template('login.html')
 
-# @app.route('/dash', methods=['GET'])
-# def dash():
-#      return 'Thank you for' 
-
 @app.route('/logout')
 def logout():
     session.clear()
     return redirect(url_for('login'))
 
-@app.route('/submit', methods=['POST'])
-def submit():
-    name = request.form.get('name')
-    email = request.form.get('email')
-    password = request.form.get('password')
-    return f'Thank you for signing up, {name}! We will send a confirmation email to {email}.'
+# @app.route('/submit', methods=['POST'])
+# def submit():
+#     name = request.form.get('name')
+#     email = request.form.get('email')
+#     password = request.form.get('password')
+#     return f'Thank you for signing up, {name}! We will send a confirmation email to {email}.'
 
 @app.route('/dashboard', methods=['GET'])
 @login_required
@@ -147,12 +119,19 @@ def dashboard():
 
     # Get the privileges of the default role for the current user
     user_privileges = privileges.get(default_role, {})
-    user_privileges = privileges.get(default_role, {})
+    # user_privileges = privileges.get(default_role, {})
 
     # Render the dashboard template with the user information, privileges, and default role
     return render_template('dashboard.html', user=current_user, privileges=user_privileges, default_role=default_role, roles=current_user['roles'])
 
+# create a new user
+#user = User(name='John', email='john@example.com', password='secret')
+#session.add(user)
+#session.commit()
 
+# retrieve all users
+#users = session.query(User).all()
+#print(users)
 
 @app.route('/add_user/<string:id>/<string:name>/<string:password>', methods=['GET'])
 def add_user(id, name, password):
