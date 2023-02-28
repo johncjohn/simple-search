@@ -33,15 +33,7 @@ dbsession = Session()
 #print(users)
 
 
-#@app.route("/", methods=("GET", "POST"))
-#def index():
- #   if request.method == "POST":
-  #      intext = request.form["query"]
-   #     response = GPT_Completion(intext)
-    #    return render_template('creation.html', result=response)
 
-    #result = request.args.get("result")
-    #return render_template("index.html", result=result)
 from functools import wraps
 
 def login_required(role="ANY"):
@@ -75,9 +67,50 @@ def get_role_names(user_name):
 def index():
     return render_template('login.html')
 
-@app.route('/dashboard')
-@login_required()
+
+   
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        user_name = request.form['username']
+        user_password = request.form['password']
+        # user = User.query.filter_by(username=username, password=password).first()
+        with Session() as dbsession:
+            user = dbsession.query(User).filter_by(user_name=user_name, user_password=user_password).first()
+        if user:
+            # session.update({'logged_in': True, 'username':user.username,'role':user.role})
+            # session.update({'logged_in': True, 'username':user.user_name,'roles':get_role_names(user_name)})
+            print("done")
+            #return redirect(url_for('dashboard'))
+            return redirect(url_for('dashboard'))
+            # return render_template('login.html')
+
+        else:
+            print("undone")
+            return render_template('login.html', error='Invalid username or password.')
+    else:
+        return render_template('login.html')
+
+# @app.route('/dash', methods=['GET'])
+# def dash():
+#      return 'Thank you for' 
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
+
+@app.route('/submit', methods=['POST'])
+def submit():
+    name = request.form.get('name')
+    email = request.form.get('email')
+    password = request.form.get('password')
+    return f'Thank you for signing up, {name}! We will send a confirmation email to {email}.'
+
+@app.route('/dashboard', methods=['GET'])
+@login_required
 def dashboard():
+    # return "Hello"
     # Get the current user and roles from the session
     current_user = {
         "username": session['username'],
@@ -102,48 +135,24 @@ def dashboard():
         }
     }
 
-    # Get the privileges of each role for the current user
-    user_privileges = {}
-    for role_name in current_user["roles"]:
-        role_privileges = privileges.get(role_name, {})
-        user_privileges.update(role_privileges)
+    # # Get the selected role from the form
+    # selected_role = request.form.get('role')
 
-    # Render the dashboard template with the user information and privileges
-    return render_template('dashboard.html', user=current_user, privileges=user_privileges)
+    # Set the default role to the first role in the current user's roles
+    default_role = current_user['roles'][0]
 
-    # return render_template('dashboard.html')
+    # If a role was selected from the form, use that as the default role
+    # if selected_role in current_user['roles']:
+    #     default_role = selected_role
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        user_name = request.form['username']
-        user_password = request.form['password']
-        # user = User.query.filter_by(username=username, password=password).first()
-        with Session() as dbsession:
-            user = dbsession.query(User).filter_by(user_name=user_name, user_password=user_password).first()
-        if user:
-            # session.update({'logged_in': True, 'username':user.username,'role':user.role})
-            session.update({'logged_in': True, 'username':user.user_name,'roles':get_role_names(user_name)})
-            print("done")
-            return redirect(url_for('dashboard'))
+    # Get the privileges of the default role for the current user
+    user_privileges = privileges.get(default_role, {})
+    user_privileges = privileges.get(default_role, {})
 
-        else:
-            print("undone")
-            return render_template('login.html', error='Invalid username or password.')
-    else:
-        return render_template('login.html')
+    # Render the dashboard template with the user information, privileges, and default role
+    return render_template('dashboard.html', user=current_user, privileges=user_privileges, default_role=default_role, roles=current_user['roles'])
 
-@app.route('/logout')
-def logout():
-    session.clear()
-    return redirect(url_for('login'))
 
-@app.route('/submit', methods=['POST'])
-def submit():
-    name = request.form.get('name')
-    email = request.form.get('email')
-    password = request.form.get('password')
-    return f'Thank you for signing up, {name}! We will send a confirmation email to {email}.'
 
 @app.route('/add_user/<string:id>/<string:name>/<string:password>', methods=['GET'])
 def add_user(id, name, password):

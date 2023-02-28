@@ -1,17 +1,3 @@
-<!-- home.html
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Home</title>
-</head>
-<body>
-    <h1>Welcome, {{ session.get('username') }}!</h1>
-    {% if session.get('role') == 'admin' %}
-        <p>You have administrative privileges.</p>
-    {% endif %}
-    <a href="{{ url_for('logout') }}">Logout</a>
-</body>
-</html> -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,36 +8,44 @@
 <body>
     <header>
         <h1>Dashboard</h1>
-        <p>Welcome, {{ username }}!</p>
-        <p>Roles: {{ roles }}</p>
-        <form action="{{ url_for('login') }}" method="post">
+        <p>Welcome, {{ user["username"] }}!</p>
+        <p>Roles:
+            <select id="roles" name="roles">
+                {% for role_name in user["roles"] %}
+                <option value="{{ role_name }}" {% if default_role == role_name %}selected{% endif %}>{{ role_name }}</option>
+                {% endfor %}
+            </select>
+            <!-- <form method="POST">
+              <label for="role">Select Role:</label>
+              <select id="role" name="role">
+                {% for role in roles %}
+                <option value="{{ role }}" {% if default_role == role %}selected{% endif %}>{{ role }}</option>
+                {% endfor %}
+              </select>
+              <button type="submit">Submit</button>
+            </form> -->
+        </p>
+        <!-- <form action="{{ url_for('logout') }}" method="post">
             <button type="submit">Logout</button>
-        </form>
+        </form> -->
     </header>
     <main>
         <section>
-            <h2>Academic</h2>
+            <h2>{{ default_role }} privileges</h2>
             <ul>
-                {% if 'view_grades' in roles %}
-                <li>View grades</li>
-                {% endif %}
-                {% if 'update_grades' in roles %}
-                <li>Update grades</li>
-                {% endif %}
-            </ul>
-        </section>
-        <section>
-            <h2>Courses</h2>
-            <ul>
-                {% if 'view_courses' in roles %}
-                <li>View courses</li>
-                {% endif %}
-                {% if 'add_course' in roles %}
-                <li>Add course</li>
-                {% endif %}
-                {% if 'remove_course' in roles %}
-                <li>Remove course</li>
-                {% endif %}
+                {% for privilege in privileges[default_role] %}
+                <li>{{ privilege }}</li>
+                {% endfor %}
             </ul>
         </section>
     </main>
+    <script>
+        const rolesSelect = document.getElementById("roles");
+        rolesSelect.addEventListener("change", function() {
+            const currentRole = rolesSelect.value;
+            const url = "{{ url_for('dashboard') }}" + "?role=" + currentRole;
+            window.location.href = url;
+        });
+    </script>
+</body>
+</html>
