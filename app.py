@@ -19,17 +19,18 @@ dbsession = Session()
 
 from functools import wraps
 
-def login_required(role="ANY"):
+def login_required(roles=['ANY']):
     def wrapper(fn):
         @wraps(fn)
         def decorated_view(*args, **kwargs):
             if not session.get('logged_in'):
                 return redirect(url_for('login'))
-            if session.get('role') != role and role != "ANY":
+            if 'ANY' not in roles and session.get('roles') not in roles:
                 return redirect(url_for('home'))
             return fn(*args, **kwargs)
         return decorated_view
     return wrapper
+
 
 # # Define a function to get the role names for a user
 # def get_role_names(user_name):
@@ -58,11 +59,14 @@ def login():
             user = dbsession.query(User).filter_by(user_name=user_name, user_password=user_password).first()
         if user:
             role_names = get_role_names(user_name, dbsession)
-            session.update({'logged_in': True, 'username':user.user_name, 'roles': role_names})
+            # privileges=get_privileges(user_name, dbsession)
+            privileges=get_privileges(role_names,dbsession)
+            session.update({'logged_in': True, 'username':user.user_name, 'roles': role_names, 'privileges':privileges})
             print("done")
             return redirect(url_for('dashboard'))            
         else:
             print("undone")
+            flash('Invalid username or password. Please try again.')
             return render_template('login.html', error='Invalid username or password.')
     else:
         return render_template('login.html')
@@ -82,56 +86,14 @@ def logout():
 @app.route('/dashboard', methods=['GET'])
 @login_required
 def dashboard():
-    # return "Hello"
-    # Get the current user and roles from the session
-    current_user = {
-        "username": session['username'],
-        "roles": session['roles']
-    }
-    # Define the available privileges for each role
-    privileges = {
-        "admin": {
-            "Academic": ["Add", "Edit", "Delete"],
-            "Courses": ["Add", "Edit", "Delete"],
-            "Enrollment": ["View", "Add", "Edit", "Delete"]
-        },
-        "director": {
-            "Academic": ["View"],
-            "Courses": ["View", "Add"],
-            "Enrollment": ["View"]
-        },
-        "student": {
-            "Academic": ["View"],
-            "Courses": ["View"],
-            "Enrollment": ["View", "Add"]
-        }
-    }
+    # Retrieve session variables
+    username = session.get('username')
+    roles = session.get('roles')
+    privileges = session.get('privileges')
 
-    # # Get the selected role from the form
-    # selected_role = request.form.get('role')
+    # Render the dashboard template with the session variables
+    return render_template('dashboard.html', username=username, roles=roles, privileges=privileges)
 
-    # Set the default role to the first role in the current user's roles
-    default_role = current_user['roles'][0]
-
-    # If a role was selected from the form, use that as the default role
-    # if selected_role in current_user['roles']:
-    #     default_role = selected_role
-
-    # Get the privileges of the default role for the current user
-    user_privileges = privileges.get(default_role, {})
-    # user_privileges = privileges.get(default_role, {})
-
-    # Render the dashboard template with the user information, privileges, and default role
-    return render_template('dashboard.html', user=current_user, privileges=user_privileges, default_role=default_role, roles=current_user['roles'])
-
-# create a new user
-#user = User(name='John', email='john@example.com', password='secret')
-#session.add(user)
-#session.commit()
-
-# retrieve all users
-#users = session.query(User).all()
-#print(users)
 
 @app.route('/add_user/<string:id>/<string:name>/<string:password>', methods=['GET'])
 def add_user(id, name, password):

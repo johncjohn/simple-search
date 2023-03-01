@@ -1,51 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
-</head>
-<body>
-    <header>
-        <h1>Dashboard</h1>
-        <p>Welcome, {{ user["username"] }}!</p>
-        <p>Roles:
-            <select id="roles" name="roles">
-                {% for role_name in user["roles"] %}
-                <option value="{{ role_name }}" {% if default_role == role_name %}selected{% endif %}>{{ role_name }}</option>
-                {% endfor %}
-            </select>
-            <!-- <form method="POST">
-              <label for="role">Select Role:</label>
-              <select id="role" name="role">
-                {% for role in roles %}
-                <option value="{{ role }}" {% if default_role == role %}selected{% endif %}>{{ role }}</option>
-                {% endfor %}
-              </select>
-              <button type="submit">Submit</button>
-            </form> -->
-        </p>
-        <!-- <form action="{{ url_for('logout') }}" method="post">
-            <button type="submit">Logout</button>
-        </form> -->
-    </header>
-    <main>
-        <section>
-            <h2>{{ default_role }} privileges</h2>
-            <ul>
-                {% for privilege in privileges[default_role] %}
-                <li>{{ privilege }}</li>
-                {% endfor %}
-            </ul>
-        </section>
-    </main>
-    <script>
-        const rolesSelect = document.getElementById("roles");
-        rolesSelect.addEventListener("change", function() {
-            const currentRole = rolesSelect.value;
-            const url = "{{ url_for('dashboard') }}" + "?role=" + currentRole;
-            window.location.href = url;
-        });
-    </script>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+  <div class="roles">
+    <ul>
+      {% for role in roles %}
+        <li><a href="#">{{ role }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="privileges">
+    <ul>
+      <li><a href="#">Academic</a>
+        <ul>
+          {% for privilege in privileges[roles[0]]["Academic"] %}
+            <li><a href="#">{{ privilege }}</a></li>
+          {% endfor %}
+        </ul>
+      </li>
+      <li><a href="#">Courses</a>
+        <ul>
+          {% for privilege in privileges[roles[0]]["Courses"] %}
+            <li><a href="#">{{ privilege }}</a></li>
+          {% endfor %}
+        </ul>
+      </li>
+      <li><a href="#">Enrollment</a>
+        <ul>
+          {% for privilege in privileges[roles[0]]["Enrollment"] %}
+            <li><a href="#">{{ privilege }}</a></li>
+          {% endfor %}
+        </ul>
+      </li>
+    </ul>
+  </div>
+{% endblock %}
