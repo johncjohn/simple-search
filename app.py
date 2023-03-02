@@ -4,7 +4,7 @@ import openai
 from flask import Flask, redirect, render_template, request, url_for,session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from models import Base, User, Role, UserRole
+from models import Base, User, Role, UserRole, Permission
 from models import CustomQuery  # import your custom query class
 
 app = Flask(__name__)
@@ -33,13 +33,27 @@ def login_required(roles=['ANY']):
 
 
 # # Define a function to get the role names for a user
-# def get_role_names(user_name):
-#     return [roles.role_name for role in user.roles]
 
 def get_role_names(user_name, dbsession):
     user = dbsession.query(User).filter_by(user_name=user_name).first()
     role_names = [role.role_name for role in user.roles]
     return role_names
+
+def get_privileges(role_names, dbsession):
+    privileges = {}
+    for role_name in role_names:
+        role = dbsession.query(Role).filter_by(role_name=role_name).first()
+        permissions = role.permissions
+        for permission in permissions:
+            category = permission.category
+            privilege = permission.privilege
+            if role_name not in privileges:
+                privileges[role_name] = {}
+            if category not in privileges[role_name]:
+                privileges[role_name][category] = []
+            privileges[role_name][category].append(privilege)
+    return privileges
+
 
 # @app.route('/')
 # def index():
@@ -59,7 +73,6 @@ def login():
             user = dbsession.query(User).filter_by(user_name=user_name, user_password=user_password).first()
         if user:
             role_names = get_role_names(user_name, dbsession)
-            # privileges=get_privileges(user_name, dbsession)
             privileges=get_privileges(role_names,dbsession)
             session.update({'logged_in': True, 'username':user.user_name, 'roles': role_names, 'privileges':privileges})
             print("done")
@@ -84,16 +97,16 @@ def logout():
 #     return f'Thank you for signing up, {name}! We will send a confirmation email to {email}.'
 
 @app.route('/dashboard', methods=['GET'])
-@login_required
+@login_required()
 def dashboard():
     # Retrieve session variables
     username = session.get('username')
     roles = session.get('roles')
     privileges = session.get('privileges')
-
+    print(username,roles,privileges)
     # Render the dashboard template with the session variables
-    return render_template('dashboard.html', username=username, roles=roles, privileges=privileges)
-
+    # return render_template('dashboard.html', username=username, roles=roles, privileges=privileges)
+    return "Congratulations!"
 
 @app.route('/add_user/<string:id>/<string:name>/<string:password>', methods=['GET'])
 def add_user(id, name, password):
@@ -124,6 +137,15 @@ def add_user_role(user_id, role_id):
     
     return 'User to Role mapping has been done successfully'
 
+@app.route('/role_permission/<int:permission_id>/<int:role_id>/<string:category>/<string:privilege>', methods=['GET'])
+def add_role_permssion(permission_id, role_id,category,privilege):
+    # session = Session()
+    role_perm = Permission(permission_id=permission_id, role_id=role_id,category=category,privilege=privilege)
+    dbsession.add(role_perm)
+    dbsession.commit()
+    dbsession.close()
+    
+    return 'Role to Permission mapping has been done successfully'
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))

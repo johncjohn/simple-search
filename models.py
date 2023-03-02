@@ -37,6 +37,14 @@ class UserRole(Base):
     user_id = Column(String, ForeignKey('users.user_id'), primary_key=True)
     role_id = Column(Integer, ForeignKey('roles.role_id'), primary_key=True)
 
+class Permission(Base):
+    __tablename__ = 'permissions'
+    permission_id = Column(Integer, primary_key=True)
+    role_id = Column(Integer, ForeignKey('roles.role_id'))
+    category = Column(String)
+    privilege = Column(String)
+    role = relationship('Role', backref='permissions')
+
 
 # class User_Role(Base):
 #     __tablename__ = 'user_role'
