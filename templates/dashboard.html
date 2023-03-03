@@ -71,21 +71,20 @@
 		</div>
 		<p>Welcome, {{ username }}!</p>
 	</header>
-	<main>
-    <div class="category-container">
-        {% for category, category_privileges in privileges[active_role].items() %}
-        <div class="category">
-            <h3>{{ category }}</h3>
-            <ul class="nav-list">
-                {% for privilege in category_privileges %}
-                <li><a href="#" class="nav-link">{{ privilege }}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% endfor %}
-    </div>
-</main>
+	<div id="privileges-container">
+		{% for category, privileges in privileges[active_role].items() %}
+			<div class="privilege-category">
+				<h2>{{ category }}</h2>
+				<ul class="nav-list">
+					{% for privilege in privileges %}
+						<li><a class="nav-link" href="#">{{ privilege }}</a></li>
+					{% endfor %}
+				</ul>
+			</div>
+		{% endfor %}
+	</div>
+	
+	<script src="/static/js/dashboard.js"></script>	
 
-	<script src="/static/dash.js"></script>
 </body>
 </html>

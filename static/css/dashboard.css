@@ -5,43 +5,43 @@ header {
 	background-color: #3498db;
 	padding: 10px 20px;
 	color: white;
-}
-
-header h1 {
+	}
+	
+	header h1 {
 	margin: 0;
 	font-size: 28px;
-}
-
-header p {
+	}
+	
+	header p {
 	margin: 0;
 	font-size: 16px;
 	font-weight: bold;
-}
-
-.role-selector {
+	}
+	
+	.role-selector {
 	display: flex;
 	align-items: center;
 	margin-right: 20px;
-}
-
-.role-selector label {
+	}
+	
+	.role-selector label {
 	margin-right: 10px;
-}
-
-.nav-list {
+	}
+	
+	.nav-list {
 	display: flex;
 	flex-wrap: wrap;
 	list-style: none;
 	padding: 0;
 	margin: 0;
-}
-
-.nav-list li {
+	}
+	
+	.nav-list li {
 	margin-right: 10px;
 	margin-bottom: 10px;
-}
-
-.nav-link {
+	}
+	
+	.nav-link {
 	display: block;
 	padding: 5px 10px;
 	background-color: #f1f1f1;
@@ -49,13 +49,26 @@ header p {
 	text-decoration: none;
 	border-radius: 5px;
 	transition: all 0.2s;
-}
-
-.nav-link:hover {
+	}
+	
+	.nav-link:hover {
 	background-color: #ddd;
-}
-
-.nav-link.active {
+	}
+	
+	.nav-link.active {
 	background-color: #3498db;
 	color: white;
-}
+	}
+	
+	.privilege-category {
+	margin-bottom: 20px;
+	}
+	
+	.privilege-category h2 {
+	margin: 0;
+	font-size: 20px;
+	}
+	
+	.dashboard-hidden {
+	display: none;
+	}

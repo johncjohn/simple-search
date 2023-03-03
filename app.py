@@ -61,7 +61,8 @@ def get_privileges(role_names, dbsession):
 @app.route('/')
 @login_required()
 def index():
-    return render_template('login.html')
+     return render_template('login.html')
+    # return "hi"
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -83,6 +84,7 @@ def login():
             return render_template('login.html', error='Invalid username or password.')
     else:
         return render_template('login.html')
+       
 
 @app.route('/logout')
 def logout():
