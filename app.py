@@ -1,7 +1,7 @@
 import os
 import psycopg2
 import openai
-from flask import Flask, redirect, render_template, request, url_for,session
+from flask import Flask, redirect, render_template, request, url_for,session,flash
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Base, User, Role, UserRole, Permission
@@ -26,7 +26,7 @@ def login_required(roles=['ANY']):
             if not session.get('logged_in'):
                 return redirect(url_for('login'))
             if 'ANY' not in roles and session.get('roles') not in roles:
-                return redirect(url_for('home'))
+                return redirect(url_for('login'))
             return fn(*args, **kwargs)
         return decorated_view
     return wrapper
@@ -103,10 +103,11 @@ def dashboard():
     username = session.get('username')
     roles = session.get('roles')
     privileges = session.get('privileges')
-    print(username,roles,privileges)
+    active_role=roles[0]
+    print(username,roles,privileges,active_role)
     # Render the dashboard template with the session variables
-    # return render_template('dashboard.html', username=username, roles=roles, privileges=privileges)
-    return "Congratulations!"
+    return render_template('dashboard.html', username=username, roles=roles, privileges=privileges,active_role=active_role)
+    #return "Congratulations!"
 
 @app.route('/add_user/<string:id>/<string:name>/<string:password>', methods=['GET'])
 def add_user(id, name, password):

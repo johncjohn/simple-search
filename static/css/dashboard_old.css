@@ -1,0 +1,77 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  background-color: #0074D9;
+  color: #FFFFFF;
+  padding: 20px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 36px;
+}
+
+.user-info {
+  float: right;
+  text-align: right;
+}
+
+.user-info p {
+  margin: 0;
+  font-size: 18px;
+}
+
+.user-info a {
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: 18px;
+  margin-left: 20px;
+}
+
+.user-info form {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.menu {
+  background-color: #F7DC6F;
+  color: #000000;
+  padding: 20px;
+  float: left;
+  width: 25%;
+  height: 100%;
+}
+
+.menu h2 {
+  margin-top: 0;
+  font-size: 24px;
+}
+
+.menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu li {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.menu li ul {
+  margin-left: 20px;
+}
+
+.menu li ul li {
+  margin-bottom: 5px;
+}
+
+.content {
+  float: left;
+  width: 75%;
+  padding: 20px;
+  height: 100%;
+}

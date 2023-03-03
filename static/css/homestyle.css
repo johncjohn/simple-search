@@ -307,3 +307,13 @@
     border-top: 1px solid #ffff;
   }
 
+  .alert-danger {
+    background-color: #ffff;
+    color: rgb(193, 23, 23);
+    animation: blink 2s infinite;
+}
+@keyframes blink {
+  50% {
+      opacity: 0;
+  }
+}

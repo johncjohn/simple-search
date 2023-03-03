@@ -1,38 +1,91 @@
-{% extends "base.html" %}
+<!-- <!DOCTYPE html>
+<html>
+<head>
+	<title>Dashboard</title>
+	<style>
+		header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			background-color: #e3400fea;
+			padding: 10px 20px;
+			color: white;
+		}
 
-{% block title %}Dashboard{% endblock %}
+		header h1 {
+			margin: 0;
+			font-size: 28px;
+		}
 
-{% block content %}
-  <div class="roles">
-    <ul>
-      {% for role in roles %}
-        <li><a href="#">{{ role }}</a></li>
-      {% endfor %}
-    </ul>
-  </div>
-  <div class="privileges">
-    <ul>
-      <li><a href="#">Academic</a>
-        <ul>
-          {% for privilege in privileges[roles[0]]["Academic"] %}
-            <li><a href="#">{{ privilege }}</a></li>
-          {% endfor %}
-        </ul>
-      </li>
-      <li><a href="#">Courses</a>
-        <ul>
-          {% for privilege in privileges[roles[0]]["Courses"] %}
-            <li><a href="#">{{ privilege }}</a></li>
-          {% endfor %}
-        </ul>
-      </li>
-      <li><a href="#">Enrollment</a>
-        <ul>
-          {% for privilege in privileges[roles[0]]["Enrollment"] %}
-            <li><a href="#">{{ privilege }}</a></li>
-          {% endfor %}
-        </ul>
-      </li>
-    </ul>
-  </div>
-{% endblock %}
+		header p {
+			margin: 0;
+			font-size: 16px;
+			font-weight: bold;
+		}
+
+		.role-selector {
+			display: flex;
+			align-items: center;
+			margin-right: 20px;
+		}
+
+		.role-selector label {
+			margin-right: 10px;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h1>Dashboard</h1>
+		<div class="role-selector">
+			<p>Select Role:</p>
+			{% for role in roles %}
+				<input type="radio" id="{{ role }}" name="role" value="{{ role }}" {% if role == active_role %}checked{% endif %}>
+				<label for="{{ role }}">{{ role }}</label>
+			{% endfor %}
+		</div>
+		<p>Welcome, {{ username }}!</p>
+	</header>
+	<main>
+		Put the rest of your dashboard content here -->
+	<!-- </main>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Dashboard</title>
+	<link rel="stylesheet" href="/static/css/dashboard.css">
+</head>
+<body>
+	<header>
+		<h1>My Dashboard</h1>
+		<div class="role-selector">
+			<label for="role-select">Select Role:</label>
+			<select id="role-select">
+				{% for role in roles %}
+					<option value="{{ role }}" {% if role == active_role %}selected{% endif %}>{{ role }}</option>
+				{% endfor %}
+			</select>
+		</div>
+		<p>Welcome, {{ username }}!</p>
+	</header>
+	<main>
+    <div class="category-container">
+        {% for category, category_privileges in privileges[active_role].items() %}
+        <div class="category">
+            <h3>{{ category }}</h3>
+            <ul class="nav-list">
+                {% for privilege in category_privileges %}
+                <li><a href="#" class="nav-link">{{ privilege }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+
+	<script src="/static/dash.js"></script>
+</body>
+</html>
