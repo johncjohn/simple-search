@@ -1,36 +1,39 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 	<title>Dashboard</title>
+	<link rel="stylesheet" href="/static/css/dashboard.css">
 	<style>
-		header {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			background-color: #e3400fea;
-			padding: 10px 20px;
-			color: white;
+		.privilege-category {
+			background-color: #f1f1f1;
+			border: 1px solid #ddd;
+			padding: 10px;
+			margin-bottom: 10px;
+			cursor: pointer;
+			overflow: hidden;
+			position: relative;
 		}
 
-		header h1 {
-			margin: 0;
-			font-size: 28px;
+		.privilege-category h3 {
+			margin-top: 0;
+			margin-bottom: 5px;
 		}
 
-		header p {
-			margin: 0;
-			font-size: 16px;
-			font-weight: bold;
+		.privilege-category .privileges {
+			display: none;
+			position: absolute;
+			top: 100%;
+			left: 0;
+			background-color: #fff;
+			border: 1px solid #ddd;
+			width: 100%;
+			padding: 10px;
+			box-sizing: border-box;
+			z-index: 1;
 		}
 
-		.role-selector {
-			display: flex;
-			align-items: center;
-			margin-right: 20px;
-		}
-
-		.role-selector label {
-			margin-right: 10px;
+		.privilege-category.active .privileges {
+			display: block;
 		}
 	</style>
 </head>
@@ -38,32 +41,9 @@
 	<header>
 		<h1>Dashboard</h1>
 		<div class="role-selector">
-			<p>Select Role:</p>
-			{% for role in roles %}
-				<input type="radio" id="{{ role }}" name="role" value="{{ role }}" {% if role == active_role %}checked{% endif %}>
-				<label for="{{ role }}">{{ role }}</label>
-			{% endfor %}
-		</div>
-		<p>Welcome, {{ username }}!</p>
-	</header>
-	<main>
-		Put the rest of your dashboard content here -->
-	<!-- </main>
-</body>
-</html> -->
-
-<!DOCTYPE html>
-<html>
-<head>
-	<title>My Dashboard</title>
-	<link rel="stylesheet" href="/static/css/dashboard.css">
-</head>
-<body>
-	<header>
-		<h1>My Dashboard</h1>
-		<div class="role-selector">
-			<label for="role-select">Select Role:</label>
+			<label>Role:</label>
 			<select id="role-select">
+				<option value="">--Select a role--</option>
 				{% for role in roles %}
 					<option value="{{ role }}" {% if role == active_role %}selected{% endif %}>{{ role }}</option>
 				{% endfor %}
@@ -71,20 +51,46 @@
 		</div>
 		<p>Welcome, {{ username }}!</p>
 	</header>
-	<div id="privileges-container">
-		{% for category, privileges in privileges[active_role].items() %}
-			<div class="privilege-category">
-				<h2>{{ category }}</h2>
-				<ul class="nav-list">
-					{% for privilege in privileges %}
-						<li><a class="nav-link" href="#">{{ privilege }}</a></li>
-					{% endfor %}
-				</ul>
-			</div>
-		{% endfor %}
-	</div>
-	
-	<script src="/static/js/dashboard.js"></script>	
+	<div id="privileges-list"></div> <!-- Add an empty div to display the privileges -->
+	<script>
+		const roleSelect = document.getElementById('role-select');
+		const privilegesList = document.getElementById('privileges-list');
 
+		const privileges = {{ privileges|tojson }}; // Get the privileges object passed from the server
+
+		const activeRole = "{{ active_role }}";
+
+		// Update the privileges list to the active role's privileges
+		updatePrivilegesList(privileges[activeRole]);
+
+		roleSelect.addEventListener('change', () => {
+			const selectedRole = roleSelect.value;
+			if (selectedRole) {
+				// Update the privileges list to the selected role's privileges
+				updatePrivilegesList(privileges[selectedRole]);
+			} else {
+				// Update to the active role's privileges when no role is selected
+				updatePrivilegesList(privileges[activeRole]);
+			}
+		});
+
+		function updatePrivilegesList(rolePrivileges) {
+			privilegesList.innerHTML = Object.entries(rolePrivileges).map(([category, privileges]) => `
+				<div class="privilege-category">
+					<h3>${category}</h3>
+					<div class="privileges">
+						${privileges.map(privilege => `<p>${privilege}</p>`).join('')}
+					</div>
+				</div>`).join('');
+
+			const categories = privilegesList.querySelectorAll('.privilege-category');
+
+			categories.forEach(category => {
+				category.addEventListener('click', () => {
+					category.classList.toggle('active');
+				});
+			});
+		}
+	</script>
 </body>
 </html>
