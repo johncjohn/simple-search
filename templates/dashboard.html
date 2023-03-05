@@ -2,37 +2,43 @@
 <html>
 <head>
 	<title>Dashboard</title>
-	<link rel="stylesheet" href="/static/css/dashboard.css">
 	<style>
-		.privilege-category {
-			background-color: #f1f1f1;
-			border: 1px solid #ddd;
-			padding: 10px;
-			margin-bottom: 10px;
-			cursor: pointer;
-			overflow: hidden;
-			position: relative;
+		header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
 		}
-
-		.privilege-category h3 {
-			margin-top: 0;
-			margin-bottom: 5px;
+		h1 {
+			margin: 0;
 		}
-
-		.privilege-category .privileges {
+		.role-selector {
+			display: flex;
+			align-items: center;
+			margin-right: 1rem;
+		}
+		label {
+			margin-right: 0.5rem;
+		}
+		.category-section {
+			margin-top: 1rem;
+			border-top: 1px solid #e30e0e;
+			padding-top: 1rem;
+		}
+		.category-name {
+			margin: 0;
+			font-weight: bold;
+			font-size: 1.2rem;
+		}
+		.privilege-list {
+			margin: 0;
+			padding: 0;
+			list-style: none;
 			display: none;
-			position: absolute;
-			top: 100%;
-			left: 0;
-			background-color: #fff;
-			border: 1px solid #ddd;
-			width: 100%;
-			padding: 10px;
-			box-sizing: border-box;
-			z-index: 1;
 		}
-
-		.privilege-category.active .privileges {
+		.privilege-list li {
+			margin-bottom: 0.5rem;
+		}
+		.category-section.active .privilege-list {
 			display: block;
 		}
 	</style>
@@ -43,53 +49,54 @@
 		<div class="role-selector">
 			<label>Role:</label>
 			<select id="role-select">
-				<option value="">--Select a role--</option>
+				<!-- <option value="">--Select a role--</option> -->
 				{% for role in roles %}
-					<option value="{{ role }}" {% if role == active_role %}selected{% endif %}>{{ role }}</option>
+					<option value="{{ role }}">{{ role }}</option>
 				{% endfor %}
 			</select>
 		</div>
 		<p>Welcome, {{ username }}!</p>
 	</header>
-	<div id="privileges-list"></div> <!-- Add an empty div to display the privileges -->
+	<div id="message"></div>
+	<div id="category-list"></div>
 	<script>
 		const roleSelect = document.getElementById('role-select');
-		const privilegesList = document.getElementById('privileges-list');
-
-		const privileges = {{ privileges|tojson }}; // Get the privileges object passed from the server
-
-		const activeRole = "{{ active_role }}";
-
-		// Update the privileges list to the active role's privileges
-		updatePrivilegesList(privileges[activeRole]);
+		const message = document.getElementById('message');
+		const categoryList = document.getElementById('category-list');
+		const defaultRole = "{{ roles[0] }}";
+		const privileges = {{ privileges | tojson }};		
+		displayCategoryList(defaultRole);
 
 		roleSelect.addEventListener('change', () => {
 			const selectedRole = roleSelect.value;
-			if (selectedRole) {
-				// Update the privileges list to the selected role's privileges
-				updatePrivilegesList(privileges[selectedRole]);
-			} else {
-				// Update to the active role's privileges when no role is selected
-				updatePrivilegesList(privileges[activeRole]);
-			}
+			displayCategoryList(selectedRole);
+			
 		});
 
-		function updatePrivilegesList(rolePrivileges) {
-			privilegesList.innerHTML = Object.entries(rolePrivileges).map(([category, privileges]) => `
-				<div class="privilege-category">
-					<h3>${category}</h3>
-					<div class="privileges">
-						${privileges.map(privilege => `<p>${privilege}</p>`).join('')}
-					</div>
-				</div>`).join('');
-
-			const categories = privilegesList.querySelectorAll('.privilege-category');
-
-			categories.forEach(category => {
-				category.addEventListener('click', () => {
-					category.classList.toggle('active');
+		function displayCategoryList(role) {
+			let html = '';
+			const categories = Object.keys(privileges[role]);
+			for (let i = 0; i < categories.length; i++) {
+				const categoryName = categories[i];
+				const privilegesList = privileges[role][categoryName];
+				html += `
+					<div class="category-section">
+						<h2 class="category-name">${categoryName}</h2>
+						<ul class="privilege-list">
+				`;
+				for (let j = 0; j < privilegesList.length; j++) {
+					const privilege = privilegesList[j];
+					html += `<li><a href="#">${privilege}</a></li>`;
+				}
+				html += '</ul></div>';
+			}
+			categoryList.innerHTML = html;
+			const categorySections = categoryList.querySelectorAll('.category-section');
+			for (let i = 0; i < categorySections.length; i++) {
+				categorySections[i].addEventListener('click', () => {
+					categorySections[i].classList.toggle('active');
 				});
-			});
+			}
 		}
 	</script>
 </body>

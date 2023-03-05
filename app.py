@@ -106,8 +106,9 @@ def dashboard():
     roles = session.get('roles')
     privileges = session.get('privileges')
     active_role=roles[0]
-    print(username,roles,privileges,active_role)
+    # print(username,roles,privileges,active_role)
     # Render the dashboard template with the session variables
+    # print(privileges)
     return render_template('dashboard.html', username=username, roles=roles, privileges=privileges,active_role=active_role)
     #return "Congratulations!"
 
