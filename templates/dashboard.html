@@ -3,11 +3,42 @@
 <head>
 	<title>Dashboard</title>
 	<style>
+		/* header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		} */
 		header {
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
+			padding: 1rem;
+			background-color: #f0f0f0;
 		}
+		.logo {
+			display: flex;
+			align-items: center;
+		}
+		.logo img {
+			height: 40px;
+			margin-right: 1rem;
+		}
+		.user-menu {
+			display: flex;
+			align-items: center;
+		}
+		.user-menu p {
+			margin: 0;
+			margin-right: 1rem;
+			font-weight: bold;
+			font-size: 1.2rem;
+		}
+		.user-menu .logout {
+			color: #e30e0e;
+			text-decoration: none;
+			font-weight: bold;
+		}	
+
 		h1 {
 			margin: 0;
 		}
@@ -45,7 +76,11 @@
 </head>
 <body>
 	<header>
-		<h1>Dashboard</h1>
+		<div class="logo">
+			<!-- <img src="logo.png" alt="Logo"> -->
+			<img src="{{ url_for('static', filename='ulogo.png') }}" class="icon" alt="Logo"/>
+			<h1>Dashboard</h1>
+		</div>
 		<div class="role-selector">
 			<label>Role:</label>
 			<select id="role-select">
@@ -55,7 +90,11 @@
 				{% endfor %}
 			</select>
 		</div>
-		<p>Welcome, {{ username }}!</p>
+		<div class="user-menu">
+			<p>Welcome, {{ username }}!</p>
+			<!-- <a href="#" class="logout">Logout</a> -->
+			<a href="{{ url_for('logout') }}">Logout</a>
+		</div>
 	</header>
 	<div id="message"></div>
 	<div id="category-list"></div>
