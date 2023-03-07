@@ -1,6 +1,7 @@
 import os
 import psycopg2
 import openai
+import uuid
 from flask import Flask, redirect, render_template, request, url_for,session,flash
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -84,7 +85,38 @@ def login():
             return render_template('login.html', error='Invalid username or password.')
     else:
         return render_template('login.html')
-       
+
+@app.route('/signup', methods=['POST'])
+def signup():
+    # get the form data
+    name = request.form['name']
+    email = request.form['email']
+    password = request.form['password']
+    confirm_password = request.form['confirm-password']
+    
+    # check if the passwords match
+    if password != confirm_password:
+        flash('Passwords do not match', 'error')
+        return redirect(url_for('show_signup_form'))
+    
+    # check if the email or username is already taken
+    with Session() as dbsession:
+        user_email = dbsession.query(User).filter_by(user_email=email).first()
+        user_name = dbsession.query(User).filter_by(user_name=name).first()
+        if user_email or user_name:
+            flash('Email or username already taken', 'error')
+            return redirect(url_for('login'))
+    
+    # create a new user with the 'user' role
+    user_id = str(uuid.uuid4())
+    user = User(user_id=user_id,user_name=name, user_email=email, user_password=password)
+    user.roles.append(Role(role_name='user'))
+    with Session() as dbsession:
+        dbsession.add(user)
+        dbsession.commit()
+        flash('Account created successfully', 'success')
+        return redirect(url_for('login'))
+
 
 @app.route('/logout')
 def logout():

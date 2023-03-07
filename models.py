@@ -21,7 +21,7 @@ Base = declarative_base()
 
 class User(Base):
     __tablename__ = 'users'
-    user_id = Column(String, primary_key=True)
+    user_id = Column(Integer, primary_key=True)
     user_name = Column(String)
     user_email = Column(String)
     user_password = Column(String)
@@ -34,9 +34,12 @@ class Role(Base):
 
 class UserRole(Base):
     __tablename__ = 'user_roles'
-    user_id = Column(String, ForeignKey('users.user_id'), primary_key=True)
-    role_id = Column(Integer, ForeignKey('roles.role_id'), primary_key=True)
+    user_id = Column(String, ForeignKey('users.user_id'), nullable=False)
+    role_id = Column(Integer, ForeignKey('roles.role_id'), nullable=False)
 
+    __table_args__ = (
+        PrimaryKeyConstraint('user_id', 'role_id'),
+    )
 class Permission(Base):
     __tablename__ = 'permissions'
     permission_id = Column(Integer, primary_key=True)
