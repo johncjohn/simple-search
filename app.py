@@ -97,7 +97,7 @@ def signup():
     # check if the passwords match
     if password != confirm_password:
         flash('Passwords do not match', 'error')
-        return redirect(url_for('show_signup_form'))
+        return redirect(url_for('login'))
     
     # check if the email or username is already taken
     with Session() as dbsession:
@@ -108,11 +108,13 @@ def signup():
             return redirect(url_for('login'))
     
     # create a new user with the 'user' role
-    user_id = str(uuid.uuid4())
-    user = User(user_id=user_id,user_name=name, user_email=email, user_password=password)
-    user.roles.append(Role(role_name='user'))
+        user_id = str(uuid.uuid4())
+        user = User(user_id=user_id, user_name=name, user_email=email, user_password=password)
+        user_role = UserRole(user_id=user_id, role_id=1)
+    # user.roles.append(Role(role_name='user'))
     with Session() as dbsession:
         dbsession.add(user)
+        dbsession.add(user_role)
         dbsession.commit()
         flash('Account created successfully', 'success')
         return redirect(url_for('login'))

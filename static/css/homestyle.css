@@ -99,7 +99,11 @@
     margin-bottom: 1rem;
   }
   
- 
+  .featured {
+    margin-top: 80px;
+    padding: 20px;
+    
+  }
   .featured h2 {
     font-size: 2rem;
     margin-bottom: 1rem;
@@ -262,6 +266,8 @@
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    margin-bottom: 50px;    
+    /* New styles */   
   }
   .tab-container form h2 {
     margin-top: 0;

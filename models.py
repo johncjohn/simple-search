@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Date, Float, Boolean, LargeBinary, Table,ForeignKey
+from sqlalchemy import Column, Integer, String, Date, Float, Boolean, LargeBinary, Table,ForeignKey, PrimaryKeyConstraint
 #from sqlalchemy.dialects.postgresql import POINT
 from datetime import date
 from sqlalchemy.ext.declarative import declarative_base
@@ -21,7 +21,7 @@ Base = declarative_base()
 
 class User(Base):
     __tablename__ = 'users'
-    user_id = Column(Integer, primary_key=True)
+    user_id = Column(String, primary_key=True)
     user_name = Column(String)
     user_email = Column(String)
     user_password = Column(String)
