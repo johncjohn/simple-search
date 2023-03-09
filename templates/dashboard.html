@@ -217,7 +217,11 @@
 				`;
 				for (let j = 0; j < privilegesList.length; j++) {
 					const privilege = privilegesList[j];
-					html += `<li><a href="#">${privilege}</a></li>`;
+					// html += `<li><a href="#">${privilege}</a></li>`;
+					// html += `<li><a href="/${encodeURIComponent(categoryName)}/${encodeURIComponent(privilege)}">${privilege}</a></li>`;
+					html += `<li><a href="/${encodeURIComponent(categoryName)}/${encodeURIComponent(privilege)}">${privilege}</a></li>`;
+					// html += `<li><a href="/${categoryName}/${privilege}">${privilege}</a></li>`;
+
 				}
 				html += '</ul></div>';
 			}

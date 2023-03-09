@@ -7,6 +7,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Base, User, Role, UserRole, Permission
 from models import CustomQuery  # import your custom query class
+from actions.user_profile import create_user_profile, edit_user_profile, view_user_profile
 
 app = Flask(__name__)
 app.secret_key = "my_secret_key"
@@ -73,7 +74,10 @@ def login():
         # user = User.query.filter_by(username=username, password=password).first()
         with Session() as dbsession:
             user = dbsession.query(User).filter_by(user_name=user_name, user_password=user_password).first()
+            # user = dbsession.query(User).filter_by(user_name=user_name).first()
+            #user = dbsession.query(User).filter_by(user_name=user_name).filter_by(user_password=user_password).first()
         if user:
+            # and user.user_password == user_password:
             role_names = get_role_names(user_name, dbsession)
             privileges=get_privileges(role_names,dbsession)
             session.update({'logged_in': True, 'username':user.user_name, 'roles': role_names, 'privileges':privileges})
@@ -123,7 +127,7 @@ def signup():
 @app.route('/logout')
 def logout():
     session.clear()
-    flash('You have been logged out.', 'success')
+    flash('You are now logged out.', 'success')
     return redirect(url_for('login'))
 
 
@@ -147,6 +151,25 @@ def dashboard():
     # print(privileges)
     return render_template('dashboard.html', username=username, roles=roles, privileges=privileges,active_role=active_role)
     #return "Congratulations!"
+
+# @app.route('/<categoryName>/<privilege>')
+@app.route('/<path:categoryName>/<privilege>')
+def handle_category_privilege(categoryName, privilege):
+    print("Category Name:", categoryName)
+    print("Privilege:", privilege)
+    print("session:", session.get('privileges'))
+    if categoryName == "User Profile" and privilege == "Create":
+        result = create_user_profile()
+    elif categoryName == "User Profile" and privilege == "Edit":
+        result = edit_user_profile()
+    elif categoryName == "User Profile" and privilege == "View":
+        result = view_user_profile()
+    elif categoryName == "Account Settings" and privilege == "Edit":
+        result = edit_account_settings()
+    else:
+        result = "Invalid categoryName or privilege value"
+    return result
+
 
 @app.route('/add_user/<string:id>/<string:name>/<string:password>', methods=['GET'])
 def add_user(id, name, password):

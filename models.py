@@ -22,7 +22,7 @@ Base = declarative_base()
 class User(Base):
     __tablename__ = 'users'
     user_id = Column(String, primary_key=True)
-    user_name = Column(String)
+    user_name = Column(String, unique=True)
     user_email = Column(String)
     user_password = Column(String)
     roles = relationship('Role', secondary='user_roles', backref='users')
