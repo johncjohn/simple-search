@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>User Profile</title>
+    <style>
+        body {
+          background-color: #f2f2f2;
+          font-family: Arial, sans-serif;
+        }
+        h1 {
+    color: #333;
+    text-align: center;
+  }
+  
+  form {
+    margin: 0 auto;
+    max-width: 500px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  select, input[type="text"], input[type="email"], input[type="password"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  select {
+    background-color: #fff;
+    color: #333;
+  }
+  
+  input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  input[type="submit"]:hover {
+    background-color: #555;
+  }
+  
+  #student-form, #staffer-form {
+    display: none;
+  }
+    /* header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 1rem;
+           	background-color: #8C1515;;
+			color: #fff;
+			font-weight: bold;
+			font-size: 1.5rem;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		} */
+
+    header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem; /* reduce top and bottom padding */
+    background-color: #8C1515;;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.2rem; /* reduce font size */
+    line-height: 1.2; /* reduce line-height */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+		.logo-container {
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			width: 50%;
+		}
+
+		.logo-img {
+			max-height: 50px;
+			margin-right: 1rem;
+			filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.25));
+		}
+		.logo-text {
+			font-size: 2rem;
+		}
+		.smaller-text {
+    		font-size: 14px;
+  		}
+          .user-menu .logout {
+			color: #fff;
+			text-decoration: none;
+			font-weight: bold;
+			border: 2px solid #fff;
+			padding: 0.5rem;
+			border-radius: 4px;
+			transition: all 0.2s ease-in-out;
+		}	
+		.user-menu .logout:hover {
+			background-color: #fff;
+			color: #e30e0e;
+		}
+		h1 {
+			margin: 0;
+		}
+</style>
+<script type="text/javascript">
+  function displayForm(elem) {
+    var studentForm = document.getElementById("student-form");
+    var stafferForm = document.getElementById("staffer-form");
+    if (elem.value == "student") {
+      studentForm.style.display = "block";
+      stafferForm.style.display = "none";
+    } else if (elem.value == "staffer") {
+      studentForm.style.display = "none";
+      stafferForm.style.display = "block";
+    } else {
+      studentForm.style.display = "none";
+      stafferForm.style.display = "none";
+    }
+  }
+</script>
+</head>
+  <body>
+    <header>
+		<div>
+		<span class="logo-text">User Profile</span>
+		<!-- <span class="smaller-text"> ERP</span>  -->
+		<!-- </div> -->
+		</div>
+        <div class="user-menu">
+			<p>Edit your profile {{ username }}</p>
+			<a href="{{ url_for('logout') }}" class="logout">Logout</a>
+		</div>
+	</header>
+    <!-- <h1>User Form</h1> -->
+    <form method="post" action="">
+      <label for="user_type">Are you a student or a staffer?</label>
+      <select name="user_type" id="user_type" onchange="displayForm(this)">
+        <option value="">Select user type</option>
+        <option value="student">Student</option>
+        <option value="staffer">Staffer</option>
+      </select>
+      <div id="student-form" style="display:none">
+        <label for="student_id">Student ID:</label>
+        <input type="text" name="student_id" id="student_id" required><br><br>
+        <label for="student_name">Student Name:</label>
+        <input type="text" name="student_name" id="student_name" required><br><br>
+        <label for="student_email">Student Email:</label>
+        <input type="email" name="student_email" id="student_email" required><br><br>
+        <label for="student_password">Student Password:</label>
+        <input type="password" name="student_password" id="student_password" required><br><br>
+        <input type="submit" value="Submit Student Form">
+      </div>
+      <div id="staffer-form" style="display:none">
+        <label for="staffer_id">Staffer ID:</label>
+        <input type="text" name="staffer_id" id="staffer_id" required><br><br>
+        <label for="staffer_name">Staffer Name:</label>
+        <input type="text" name="staffer_name" id="staffer_name" required><br><br>
+        <label for="staffer_email">Staffer Email:</label>
+        <input type="email" name="staffer_email" id="staffer_email" required><br><br>
+        <label for="staffer_password">Staffer Password:</label>
+        <input type="password" name="staffer_password" id="staffer_password" required><br><br>
+        <input type="submit" value="Submit Staffer Form">
+      </div>
+    </form>
+  </body>
+</html>
