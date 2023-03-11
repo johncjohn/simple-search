@@ -91,69 +91,188 @@
   background-color: #555;
 }
 
-    </style>
-    <script type="text/javascript">
-        function displayForm(elem) {
-            var studentForm = document.getElementById("student-form");
-            var stafferForm = document.getElementById("staffer-form");
-            if (elem.value == "student") {
-                studentForm.style.display = "flex";
-                stafferForm.style.display = "none";
-            } else if (elem.value == "staffer") {
-                studentForm.style.display = "none";
-                stafferForm.style.display = "flex";
-            } else {
-                studentForm.style.display = "none";
-                stafferForm.style.display = "none";
-    }
+label[for="user_type"] {
+  /* font-family: "Open Sans", sans-serif; */
+  font-family: Lato, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  /* margin-top: 10px; */
+  margin-bottom: 10px;
+  display: block;
+  /* text-shadow: 0 0 10px #ff7a7a, 0 0 20px #ff7a7a, 0 0 30px #ff7a7a, 0 0 40px #ff7a7a, 0 0 55px #ff7a7a; */
+  /* animation: form-glow-animation 1s ease-out infinite alternate; */
+}
+
+/* .glow {
+box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+transition: box-shadow 0.5s ease-in-out;
+} */
+
+select {
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 2px #ccc;
+  border-radius: 5px;
+  font-size: 18px;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 100%; 
+  text-align: center; /* add this line */
+  
+  /* box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff7a7a, 0 0 30px #ff7a7a, 0 0 40px #ff7a7a, 0 0 55px #ff7a7a;  */
+  /* animation: form-glow-animation 1s ease-out infinite alternate;  */
+ }
+
+
+.form-glow {
+  box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff7a7a, 0 0 30px #ff7a7a, 0 0 40px #ff7a7a, 0 0 55px #ff7a7a;
+  animation: form-glow-animation 1s ease-out infinite alternate;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* height: 100vh; */
+}
+
+
+/* label {
+  margin-bottom: 10px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+} */
+
+input[type="submit"] {
+  width: auto;
+}
+
+
+
+
+/* @keyframes form-glow-animation {
+  0% {
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff7a7a, 0 0 30px #ff7a7a, 0 0 40px #ff7a7a, 0 0 55px #ff7a7a;
   }
+  100% {
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff7a7a, 0 0 30px #ff7a7a, 0 0 40px #ff7a7a, 0 0 70px #ff7a7a;
+  }
+} */
+
+ </style>
+
+<script type="text/javascript">
+  function displayForm(elem) {
+      var studentForm = document.getElementById("student-form");
+      var stafferForm = document.getElementById("staffer-form");
+      if (elem.value == "student") {
+          studentForm.style.display = "flex";
+          stafferForm.style.display = "none";
+      } else if (elem.value == "staffer") {
+          studentForm.style.display = "none";
+          stafferForm.style.display = "flex";
+      } else {
+          studentForm.style.display = "none";
+          stafferForm.style.display = "none";
+}
+}
 </script>
 </head>
-  <body>
-    <header>
-		<div>
-            <span class="logo-text" style="margin-right: 17px;">Edit Profile</span>
-            <a href="{{ url_for('dashboard') }}" class="dashbutton"><i class="fas fa-chevron-left"></i> Dashboard</a>
-          
-		<!-- <span class="smaller-text"> ERP</span>  -->
-		<!-- </div> -->
-		</div>
-        <div class="user-menu">
-            <p>User: {{ username }}</p>
-            <a href="{{ url_for('logout') }}" class="logout">Logout</a>
-		</div>
-	</header>
-    <!-- <h1>User Form</h1> -->
-    <form method="post" action="">
-      <label for="user_type">Are you a student or a staffer?</label>
-      <select name="user_type" id="user_type" onchange="displayForm(this)">
-        <option value="">Select user type</option>
-        <option value="student">Student</option>
-        <option value="staffer">Staffer</option>
-      </select>
-      <div id="student-form" style="display:none">
-        <label for="student_id">Student ID:</label>
-        <input type="text" name="student_id" id="student_id" required><br><br>
-        <label for="student_name">Student Name:</label>
-        <input type="text" name="student_name" id="student_name" required><br><br>
-        <label for="student_email">Student Email:</label>
-        <input type="email" name="student_email" id="student_email" required><br><br>
-        <label for="student_password">Student Password:</label>
-        <input type="password" name="student_password" id="student_password" required><br><br>
-        <input type="submit" value="Submit Student Form">
-      </div>
-      <div id="staffer-form" style="display:none">
-        <label for="staffer_id">Staffer ID:</label>
-        <input type="text" name="staffer_id" id="staffer_id" required><br><br>
-        <label for="staffer_name">Staffer Name:</label>
-        <input type="text" name="staffer_name" id="staffer_name" required><br><br>
-        <label for="staffer_email">Staffer Email:</label>
-        <input type="email" name="staffer_email" id="staffer_email" required><br><br>
-        <label for="staffer_password">Staffer Password:</label>
-        <input type="password" name="staffer_password" id="staffer_password" required><br><br>
-        <input type="submit" value="Submit Staffer Form">
-      </div>
-    </form>
+<body>
+<header>
+<div>
+      <span class="logo-text" style="margin-right: 17px;">Edit Profile</span>
+      <a href="{{ url_for('dashboard') }}" class="dashbutton"><i class="fas fa-chevron-left"></i> Dashboard</a>
+    
+<!-- <span class="smaller-text"> ERP</span>  -->
+<!-- </div> -->
+</div>
+  <div class="user-menu">
+      <p>User: {{ username }}</p>
+      <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+</div>
+</header>
+<!-- <h1>User Form</h1> -->
+<form method="post" action="">
+<!-- <label for="user_type">Are you a student or a staffer?</label> -->
+<select name="user_type" id="user_type" onchange="displayForm(this)">
+  <option value="">Enrolling student or new staff-member?</option>
+  <option value="student">student</option>
+  <option value="staffer">staff-member</option>
+</select>
+<div id="student-form" style="display:none" class="form-glow">
+  <input type="text" name="admission_no" id="admission_no" placeholder="Admission No (will be generated automatically)"><br>
+
+  <input type="text" name="name" id="name" placeholder="Name"><br>
+
+  <select name="program_id" id="program_id">
+    <option value="" disabled selected>Select Program ID</option>
+    <option value="program1">Program 1</option>
+    <option value="program2">Program 2</option>
+    <option value="program3">Program 3</option>
+  </select><br>
+
+  <select name="institute_id" id="institute_id">
+    <option value="" disabled selected>Select Institute ID</option>
+    <option value="institute1">Institute 1</option>
+    <option value="institute2">Institute 2</option>
+    <option value="institute3">Institute 3</option>
+  </select><br>
+
+  <input type="text" name="admission_type" id="admission_type" placeholder="Admission Type"><br>
+
+  <select name="entry_sem" id="entry_sem">
+    <option value="" disabled selected>Select Entry Semester</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+  </select><br>
+
+  <select name="exit_sem" id="exit_sem">
+    <option value="" disabled selected>Select Exit Semester</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+  </select><br>
+
+  <input type="number" name="year_of_admission" id="year_of_admission" placeholder="Year of Admission"><br>
+
+  <input type="submit" value="Submit">
+</div>
+<div id="staffer-form" style="display:none">
+  <label for="staffer_id">Staffer ID:</label>
+  <input type="text" name="staffer_id" id="staffer_id" required><br><br>
+  <label for="staffer_name">Staffer Name:</label>
+  <input type="text" name="staffer_name" id="staffer_name" required><br><br>
+  <label for="staffer_email">Staffer Email:</label>
+  <input type="email" name="staffer_email" id="staffer_email" required><br><br>
+  <label for="staffer_password">Staffer Password:</label>
+  <input type="password" name="staffer_password" id="staffer_password" required><br><br>
+  <input type="submit" value="Submit Staffer Form">
+</div>
+</form>
   </body>
 </html>
 
