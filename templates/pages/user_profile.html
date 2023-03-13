@@ -161,7 +161,7 @@ transition: box-shadow 0.5s ease-in-out;
   border-radius: 5px;
   cursor: pointer;
 } */
-.styled-form {
+/* .styled-form {
     display: none;
     width: 350px;
     margin: 0 auto;
@@ -169,7 +169,7 @@ transition: box-shadow 0.5s ease-in-out;
     background-color: #f9f9f9;
     border: 1px solid #ccc;
     border-radius: 5px;
-  }
+  } */
 
   /* .styled-form {
   max-width: 600px;
@@ -179,10 +179,74 @@ transition: box-shadow 0.5s ease-in-out;
   grid-gap: 20px;
 } */
 
+.styled-form {
+  display: none;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* .styled-form fieldset {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+  margin: 20px 0;
+} */
+
+.styled-form fieldset {
+  display: inline-block;
+  vertical-align: top; /* optional, to align fieldsets at the top */
+  /* width: 90%; */
+   /* adjust as needed */
+  margin-right: 20px;
+  max-width: 300px;
+}
+/* .styled-form legend {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  font-weight: bold;
+  text-align: center;
+} */
+
+.styled-form fieldset legend {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.styled-form fieldset label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.styled-form fieldset input[type="text"],
+.styled-form fieldset input[type="email"],
+.styled-form fieldset input[type="tel"] {
+  width: 80%;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.styled-form fieldset input[type="submit"] {
+  display: block;
+  margin-top: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  background-color: #4CAF50;
+  color: #fff;
+  cursor: pointer;
+}
+/* .styled-form input[type="submit"] {
+  grid-column: 1 / -1;
+  justify-self: center;
+} */
 
 
 
-fieldset {
+/* fieldset {
   border: none;
   padding: 0;
 }
@@ -193,10 +257,10 @@ legend {
   margin-bottom: 10px;
   border-bottom: 1px solid #ccc;
   padding-bottom: 5px;
-}
+} */
 
 
-  .styled-form input[type="text"],
+  /* .styled-form input[type="text"],
   .styled-form input[type="email"],
   .styled-form input[type="tel"] {
     width: 100%;
@@ -206,9 +270,9 @@ legend {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-  }
+  } */
 
-  .styled-form input[type="submit"] {
+  /* .styled-form input[type="submit"] {
     width: 100%;
     background-color: #4CAF50;
     color: white;
@@ -221,7 +285,7 @@ legend {
 
   .styled-form input[type="submit"]:hover {
     background-color: #45a049;
-  }
+  } */
 
  
  </style>
@@ -274,6 +338,7 @@ function displayForm(elem) {
       <input type="email" id="email" name="email" placeholder="Enter your email address" title="Please enter your email address">
       <br>
       <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" title="Please enter your phone number">
+     
     </fieldset>
   
     <fieldset>
@@ -298,8 +363,9 @@ function displayForm(elem) {
       <legend>Photo Upload</legend>
       <input type="file" id="photo" name="photo" title="Please upload a photo of yourself">
     </fieldset>
-  
+    <fieldset></fieldset>
     <input type="submit" value="Submit">
+    </fieldset>
   </form>
   
   
