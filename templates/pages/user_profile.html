@@ -213,39 +213,366 @@ function displayForm(elem) {
 	</form>
 	<form id="student-form" class="styled-form">
     <fieldset>
-      <legend>Personal Information</legend>
-      <input type="text" id="name" name="name" placeholder="Enter your full name" title="Please enter your full name">
-      <br>
-      <input type="email" id="email" name="email" placeholder="Enter your email address" title="Please enter your email address">
-      <br>
-      <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" title="Please enter your phone number">
-     
+      <legend>Program Information</legend>
+      <label for="admission-number">Admission Number:</label>
+        <input type="text" id="admission-number" name="admission-number">
+      
+        <label for="program-id">Program ID:</label>
+        <input type="text" id="program-id" name="program-id">
+      
+        <label for="institute-id">Institute ID:</label>
+        <input type="text" id="institute-id" name="institute-id">
+      
+        <label for="admission-type">Admission Type:</label>
+        <select id="admission-type" name="admission-type">
+          <option value="regular">Regular</option>
+          <option value="sponsored">Sponsored</option>
+          <option value="self-financed">Self-Financed</option>
+        </select>
+      
+        <label for="entry-semester">Entry Semester:</label>
+        <select id="entry-semester" name="entry-semester">
+          <option value="january">January</option>
+          <option value="july">July</option>
+        </select>
+      
+        <label for="exit-semester">Exit Semester:</label>
+        <select id="exit-semester" name="exit-semester">
+          <option value="january">January</option>
+          <option value="july">July</option>
+        </select>
+      
+        <label for="year-of-admission">Year of Admission:</label>
+        <input type="text" id="year-of-admission" name="year-of-admission">
+      
+        <label for="date-of-admission">Date of Admission:</label>
+        <input type="date" id="date-of-admission" name="date-of-admission">
+      
+        <label for="advisor1-pen">Advisor 1 PEN:</label>
+        <input type="text" id="advisor1-pen" name="advisor1-pen">
+      
+        <label for="advisor2-pen">Advisor 2 PEN:</label>
+        <input type="text" id="advisor2-pen" name="advisor2-pen">
+      
+        <label for="status">Status:</label>
+        <select id="status" name="status">
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+      
+        <label for="sgpa">SGPA:</label>
+        <input type="text" id="sgpa" name="sgpa">
+      
+        <label for="disciplinary-action">Disciplinary Action:</label>
+        <input type="text" id="disciplinary-action" name="disciplinary-action">
+      
     </fieldset>
-  
+    
+    <fieldset>
+      <legend>Personal Information</legend>
+      <!-- personal information form fields go here -->
+      
+        <label for="fullname">Full Name:</label>
+        <input type="text" id="fullname" name="fullname"><br>
+      
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email"><br>
+      
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" name="phone"><br>
+      
+        <label for="altphone">Secondary Phone Number:</label>
+        <input type="text" id="altphone" name="altphone"><br>
+      
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob"><br>
+      
+        <label for="gender">Gender:</label>
+        <input type="radio" id="gender-male" name="gender" value="male">
+        <label for="gender-male">Male</label>
+        <input type="radio" id="gender-female" name="gender" value="female">
+        <label for="gender-female">Female</label>
+        <input type="radio" id="gender-other" name="gender" value="other">
+        <label for="gender-other">Other</label><br>
+
+        <label for="religion">Religion:</label>
+        <select id="religion" name="religion">
+        <option value="Christian">Christian</option>
+        <option value="Muslim">Muslim</option>
+        <option value="Hindu">Hindu</option>
+        <option value="Buddhist">Buddhist</option>
+        <option value="Other">Other</option>
+      </select>
+      <input type="text" id="other-religion" name="other-religion" placeholder="Please specify your religion">
+
+             
+        <label for="caste">Caste:</label>
+        <input type="text" id="caste" name="caste"><br>
+      
+        <label for="blood">Blood Group:</label>
+        <input type="text" id="blood" name="blood"><br>
+      
+        <label for="aadhar">Aadhar Number:</label>
+        <input type="text" id="aadhar" name="aadhar"><br>
+      
+        <label for="pan">PAN Number:</label>
+        <input type="text" id="pan" name="pan"><br>
+      
+        <label for="passport">Passport Number:</label>
+        <input type="text" id="passport" name="passport"><br>
+      
+      
+    </fieldset>
+    
+    <fieldset>
+      <legend>Contact Information</legend>
+      <!-- contact information form fields go here -->
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" name="email" required>
+      
+      <label for="rit_email">RIT Email Address:</label>
+      <input type="email" id="rit_email" name="rit_email" required>
+      
+      <label for="mobile">Mobile Phone Number:</label>
+      <input type="tel" id="mobile" name="mobile" required>
+      
+      <label for="landline">Landline Phone Number:</label>
+      <input type="tel" id="landline" name="landline">
+      
+      <h2>Permanent Address:</h2>
+      <label for="permanent_address_line_1">Address Line 1:</label>
+      <input type="text" id="permanent_address_line_1" name="permanent_address_line_1" required>
+      
+      <label for="permanent_post_office">Post Office:</label>
+      <input type="text" id="permanent_post_office" name="permanent_post_office" required>
+      
+      <label for="permanent_district">District:</label>
+      <input type="text" id="permanent_district" name="permanent_district" required>
+      
+      <label for="permanent_state">State:</label>
+      <input type="text" id="permanent_state" name="permanent_state" required>
+      
+      <label for="permanent_pincode">Pincode:</label>
+      <input type="text" id="permanent_pincode" name="permanent_pincode" required>
+      
+      <label for="permanent_gps">GPS:</label>
+      <input type="text" id="permanent_gps" name="permanent_gps">
+      
+      <h2>Correspondence Address (if different from Permanent Address):</h2>
+      <label for="correspondence_address_line_1">Address Line 1:</label>
+      <input type="text" id="correspondence_address_line_1" name="correspondence_address_line_1">
+      
+      <label for="correspondence_post_office">Post Office:</label>
+      <input type="text" id="correspondence_post_office" name="correspondence_post_office">
+      
+      <label for="correspondence_district">District:</label>
+      <input type="text" id="correspondence_district" name="correspondence_district">
+      
+      <label for="correspondence_state">State:</label>
+      <input type="text" id="correspondence_state" name="correspondence_state">
+      
+      <label for="correspondence_pincode">Pincode:</label>
+      <input type="text" id="correspondence_pincode" name="correspondence_pincode">
+      
+      <label for="correspondence_gps">GPS:</label>
+      <input type="text" id="correspondence_gps" name="correspondence_gps">
+      
+    </fieldset>
+
+       
     <fieldset>
       <legend>Academic Information</legend>
-      <input type="text" id="degree" name="degree" placeholder="Enter your degree program" title="Please enter your degree program">
-      <br>
-      <input type="text" id="major" name="major" placeholder="Enter your major" title="Please enter your major">
-      <br>
-      <input type="text" id="university" name="university" placeholder="Enter your university" title="Please enter your university">
+      
+        
+        <label for="entrance-exam-name">Entrance Exam Name:</label>
+        <input type="text" id="entrance-exam-name" name="entrance-exam-name">
+      
+        <label for="entrance-exam-score">Entrance Exam Score:</label>
+        <input type="text" id="entrance-exam-score" name="entrance-exam-score">
+      
+        <label for="entrance-exam-rank">Entrance Exam Rank:</label>
+        <input type="text" id="entrance-exam-rank" name="entrance-exam-rank">
+      
+        <label for="quota">Quota:</label>
+        <select id="quota" name="quota">
+          <option value="general">General</option>
+          <option value="sc">SC</option>
+          <option value="st">ST</option>
+          <option value="obc">OBC</option>
+        </select>
+        <label for="degree_name">Name of Degree:</label>
+        <input type="text" id="degree_name" name="degree_name">
+
+        <label for="institute_name">Name of Institute:</label>
+        <input type="text" id="institute_name" name="institute_name">
+
+        <label for="university_name">Name of University:</label>
+        <input type="text" id="university_name" name="university_name">
+
+        <label for="ug_score">Score:</label>
+        <input type="text" id="ug_score" name="ug_score">
+
+        <label for="ug_total_score">Total Score:</label>
+        <input type="text" id="ug_total_score" name="ug_total_score">
+
+        <label for="cgpa">CGPA:</label>
+        <input type="text" id="cgpa" name="cgpa">
+
+        <label for="percentage">Percentage:</label>
+        <input type="text" id="percentage" name="percentage">
+
+
+        <!-- Postgraduate Details -->
+        <label for="pg_degree_name">Name of Degree:</label>
+       <input type="text" id="pg_degree_name" name="pg_degree_name">
+
+       <label for="pg_institute_name">Name of Institute:</label>
+      <input type="text" id="pg_institute_name" name="pg_institute_name">
+
+      <label for="pg_university_name">Name of University:</label>
+      <input type="text" id="pg_university_name" name="pg_university_name">
+
+      <label for="pg_score">Score:</label>
+      <input type="text" id="pg_score" name="pg_score">
+
+      <label for="pg_total_score">Total Score:</label>
+      <input type="text" id="pg_total_score" name="pg_total_score">
+
+      <label for="pg_cgpa">CGPA:</label>
+      <input type="text" id="pg_cgpa" name="pg_cgpa">
+
+      <label for="pg_percentage">Percentage:</label>
+      <input type="text" id="pg_percentage" name="pg_percentage">
+
+      <label for="gate_score">GATE Score:</label>
+      <input type="text" id="gate_score" name="gate_score">
+
+      <label for="jrf_score">JRF Score:</label>
+      <input type="text" id="jrf_score" name="jrf_score">
+
+      <label for="net_score">NET Score:</label>
+      <input type="text" id="net_score" name="net_score">
+
+      <label for="additional_qualification">Additional Qualifications:</label>
+      <input type="text" id="additional_qualification" name="additional_qualification">
+
+      <label for="last_institute_studied">Last Institute Studied:</label>
+      <input type="text" id="last_institute_studied" name="last_institute_studied">
+
+
+      <!-- School Education Details (2 Sets) -->
+      <label for="school_name_1">School Name:</label>
+      <input type="text" id="school_name_1" name="school_name_1">
+
+      <label for="registration_number_1">Registration Number:</label>
+      <input type="text" id="registration_number_1" name="registration_number_1">
+
+      <label for="board_1">Board:</label>
+      <input type="text" id="board_1" name="board_1">
+
+      <label for="score_1">Score:</label>
+      <input type="text" id="score_1" name="score_1">
+
+      <label for="total_score_1">Total Score:</label>
+      <input type="text" id="total_score_1" name="total_score_1">
+
+      <label for="grade_1">Grade:</label>
+      <input type="text" id="grade_1" name="grade_1">
+
+      <label for="percentage_1">Percentage:</label>
+      <input type="text" id="percentage" name="percentage">
+
+      <label for="chances">No. of Chances:</label>
+      <input type="text" id="chances" name="chances">
+
+      <label for="school-name">School Name:</label>
+      <input type="text" id="school-name" name="school-name"><br>
+
+      <label for="reg-num">Registration Number:</label>
+      <input type="text" id="reg-num" name="reg-num"><br>
+
+      <label for="board">Board:</label>
+      <input type="text" id="board" name="board"><br>
+
+      <label for="physics-score">Physics Score:</label>
+      <input type="text" id="physics-score" name="physics-score"><br>
+
+      <label for="chemistry-score">Chemistry Score:</label>
+      <input type="text" id="chemistry-score" name="chemistry-score"><br>
+
+      <label for="math-score">Mathematics Score:</label>
+      <input type="text" id="math-score" name="math-score"><br>
+
+      <label for="total-score">Total Score:</label>
+      <input type="text" id="total-score" name="total-score"><br>
+
+      <label for="grade">Grade:</label>
+      <input type="text" id="grade" name="grade"><br>
+
+      <label for="percentage">Percentage:</label>
+      <input type="text" id="percentage" name="percentage"><br>
+
+      <label for="num-chances">No. of Chances:</label>
+      <input type="text" id="num-chances" name="num-chances"><br>
+
+
+
+        
+      
     </fieldset>
-  
+    
     <fieldset>
-      <legend>Bank Information</legend>
-      <input type="text" id="account-name" name="account-name" placeholder="Enter the name on your bank account" title="Please enter the name on your bank account">
-      <br>
-      <input type="text" id="account-number" name="account-number" placeholder="Enter your bank account number" title="Please enter your bank account number">
-      <br>
-      <input type="text" id="bank-name" name="bank-name" placeholder="Enter the name of your bank" title="Please enter the name of your bank">
-    </fieldset>
-  
+      <legend>Reservation Category</legend>
+      <label for="reservation_category">Reservation Category:</label>
+      <input type="checkbox" id="sc" name="reservation_category" value="SC">
+      <label for="sc">SC</label>
+      <input type="checkbox" id="st" name="reservation_category" value="ST">
+      <label for="st">ST</label>
+      <input type="checkbox" id="obc" name="reservation_category" value="OBC">
+      <label for="obc">OBC</label>
+      <input type="checkbox" id="oec" name="reservation_category" value="OEC">
+      <label for="oec">OEC</label>
+      <input type="checkbox" id="muslim" name="reservation_category" value="Muslim">
+      <label for="muslim">Muslim</label>
+      <input type="checkbox" id="ecs" name="reservation_category" value="ECS">
+      <label for="ecs">ECS</label>
+      <input type="checkbox" id="ph" name="reservation_category" value="PH">
+      <label for="ph">PH</label>
+      <input type="checkbox" id="bpl" name="reservation_category" value="BPL">
+      <label for="bpl">BPL</label>
+      </fieldset>
+    
     <fieldset>
-      <legend>Photo Upload</legend>
-      <input type="file" id="photo" name="photo" title="Please upload a photo of yourself">
+      <legend>Bank Account Information</legend>
+      <!-- bank account information form fields go here -->
+      <label for="bank_account_number">Bank Account Number:</label>
+      <input type="text" id="bank_account_number" name="bank_account_number">
+
+      <label for="bank_name">Bank Name:</label>
+      <input type="text" id="bank_name" name="bank_name">
+
+      <label for="bank_branch">Bank Branch:</label>
+      <input type="text" id="bank_branch" name="bank_branch">
+
+      <label for="ifsc_code">IFSC Code:</label>
+      <input type="text" id="ifsc_code" name="ifsc_code">
+
     </fieldset>
-    <fieldset></fieldset>
-    <input type="submit" value="Submit">
+    
+    <fieldset>
+      <legend>Additional Information</legend>
+      <!-- other information form fields go here -->
+      <label for="remarks">Remarks:</label>
+      <textarea id="remarks" name="remarks"></textarea>
+
+      <label for="image">Image:</label>
+      <input type="file" id="image" name="image">
+
+      <label for="image_status">Image Status:</label>
+      <input type="radio" id="verified" name="image_status" value="verified">
+      <label for="verified">Verified</label>
+      <input type="radio" id="not_verified" name="image_status" value="not_verified">
+      <label for="not_verified">Not Verified</label>
     </fieldset>
   </form>
   
