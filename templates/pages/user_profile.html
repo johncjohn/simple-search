@@ -186,6 +186,15 @@ function displayForm(elem) {
   }
 }
 
+function toggleOther() {
+  var select = document.getElementById("religion");
+  var otherContainer = document.getElementById("other-religion-container");
+  if (select.value === "Other") {
+    otherContainer.style.display = "block";
+  } else {
+    otherContainer.style.display = "none";
+  }
+}
 </script> 
 </head>
 <body>
@@ -214,41 +223,52 @@ function displayForm(elem) {
 	<form id="student-form" class="styled-form">
     <fieldset>
       <legend>Program Information</legend>
-      <label for="admission-number">Admission Number:</label>
-        <input type="text" id="admission-number" name="admission-number">
+      <!-- <label for="admission-number">Admission Number:</label>
+        <input type="text" id="admission-number" name="admission-number"> -->
       
         <label for="program-id">Program ID:</label>
         <input type="text" id="program-id" name="program-id">
+        <label for="program-id">Program ID:</label>
+        <select id="program-id" name="program-id">
+        {% for program_id in program_ids %}
+         <option value="{{ program_id[0] }}">{{ program_id[0] }}</option>
+         {% endfor %}
+        </select>
+
       
         <label for="institute-id">Institute ID:</label>
-        <input type="text" id="institute-id" name="institute-id">
-      
-        <label for="admission-type">Admission Type:</label>
-        <select id="admission-type" name="admission-type">
-          <option value="regular">Regular</option>
-          <option value="sponsored">Sponsored</option>
-          <option value="self-financed">Self-Financed</option>
+        <input type="text" id="institute-id" name="institute-id">'
+        <label for="institute-id">Institute ID:</label>
+        <select id="institute-id" name="institute-id">
+          {% for institute_id in institute_ids %}
+          <option value="{{ institute_id[0] }}">{{ institute_id[0] }}</option>
+          {% endfor %}
         </select>
+
       
-        <label for="entry-semester">Entry Semester:</label>
-        <select id="entry-semester" name="entry-semester">
-          <option value="january">January</option>
-          <option value="july">July</option>
+        <label for="sem-entry">Entry Semester:</label>
+        <select id="sem-entry" name="sem-entry">
+        {% for i in range(1, 11) %}
+          <option value="{{ i }}">{{ i }}</option>
+        {% endfor %}
         </select>
+
+      <label for="sem-exit">Exit Semester:</label>
+      <select id="sem-exit" name="sem-exit">
+        {% for i in range(1, 11) %}
+            <option value="{{ i }}">{{ i }}</option>
+        {% endfor %}
+      </select>
+
+      <label for="year-of-admission">Year of Admission:</label>
+      <input type="number" id="year-of-admission" name="year-of-admission" min="1900" max="2099" step="1">
+
+              
+        
       
-        <label for="exit-semester">Exit Semester:</label>
-        <select id="exit-semester" name="exit-semester">
-          <option value="january">January</option>
-          <option value="july">July</option>
-        </select>
+        
       
-        <label for="year-of-admission">Year of Admission:</label>
-        <input type="text" id="year-of-admission" name="year-of-admission">
-      
-        <label for="date-of-admission">Date of Admission:</label>
-        <input type="date" id="date-of-admission" name="date-of-admission">
-      
-        <label for="advisor1-pen">Advisor 1 PEN:</label>
+        <!-- <label for="advisor1-pen">Advisor 1 PEN:</label>
         <input type="text" id="advisor1-pen" name="advisor1-pen">
       
         <label for="advisor2-pen">Advisor 2 PEN:</label>
@@ -257,14 +277,14 @@ function displayForm(elem) {
         <label for="status">Status:</label>
         <select id="status" name="status">
           <option value="active">Active</option>
-          <option value="inactive">Inactive</option>
+          <option value="inactive">Inactive</option> -->
         </select>
       
         <label for="sgpa">SGPA:</label>
         <input type="text" id="sgpa" name="sgpa">
       
-        <label for="disciplinary-action">Disciplinary Action:</label>
-        <input type="text" id="disciplinary-action" name="disciplinary-action">
+        <!-- <label for="disciplinary-action">Disciplinary Action:</label>
+        <input type="text" id="disciplinary-action" name="disciplinary-action"> -->
       
     </fieldset>
     
@@ -296,12 +316,18 @@ function displayForm(elem) {
         <label for="gender-other">Other</label><br>
 
         <label for="religion">Religion:</label>
-        <select id="religion" name="religion">
-        <option value="Christian">Christian</option>
-        <option value="Muslim">Muslim</option>
-        <option value="Hindu">Hindu</option>
-        <option value="Buddhist">Buddhist</option>
-        <option value="Other">Other</option>
+<select id="religion" name="religion" onchange="toggleOther()">
+  <option value="Christian">Christian</option>
+  <option value="Muslim">Muslim</option>
+  <option value="Hindu">Hindu</option>
+  <option value="Buddhist">Buddhist</option>
+  <option value="Other">Other</option>
+</select>
+<div id="other-religion-container" style="display:none;">
+  <label for="other-religion">Other Religion:</label>
+  <input type="text" id="other-religion" name="other-religion">
+</div>
+
       </select>
       <input type="text" id="other-religion" name="other-religion" placeholder="Please specify your religion">
 
