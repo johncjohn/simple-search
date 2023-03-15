@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Date, Float, Boolean, LargeBinary, Table,ForeignKey, PrimaryKeyConstraint
+from sqlalchemy import Column, Integer, String, Date, Float, Boolean, LargeBinary, Table,ForeignKey, PrimaryKeyConstraint, DateTime
 #from sqlalchemy.dialects.postgresql import POINT
 from datetime import date
 from sqlalchemy.ext.declarative import declarative_base
